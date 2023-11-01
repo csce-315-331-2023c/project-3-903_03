@@ -57,6 +57,7 @@
 <div class="navbar">
   <a href="/menu">View Our Menu</a>
   <a href="/about">Learn About Us</a>
+  <a href="/login">Log In</a>
 </div>
 
 <div class="contact">
