@@ -23,6 +23,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"pg": "^8.11.3"
+		"pg": "^8.11.3",
+		"sveltestrap": "^5.11.2"
 	}
 }
