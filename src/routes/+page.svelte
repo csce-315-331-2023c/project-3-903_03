@@ -1,10 +1,71 @@
-<h1>Home</h1>
-<h2>Welcome to Group 3's Project 3 for CSCE 315-903</h2>
-<p>This is a work in progress.</p>
-<nav>
-    <a href="/">Home</a>
-    <a href="/menu">Menu</a>
-</nav>
 
+<style>
+  /* Add your CSS styles here */
+  .container {
+    text-align: center;
+    padding: 20px;
+  }
+  .extra-text {
+    text-align: center;
+    padding: 20px;
+  }
+  .navbar {
+    text-align: center;
+    padding: 20px;
+  }
+  .contact {
+    text-align: center;
+    padding: 20px;
+  }
+  .socials {
+    text-align: center;
+    padding: 20px;
+  }
 
-  
+  h1 {
+    font-size: 36px;
+    color: #ff6347; 
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .order-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <h1>Welcome to Tiff's Treats</h1>
+  <p>Home of delicious warm cookies delivered to your doorstep!</p>
+  <button class="order-button">Order Now</button>
+</div>
+
+<div class="extra-text">
+  <p>Founded in 1999, Tiff's Treats is the nation's first warm cookie delivery company.</p>
+  <p>Our cookies are baked fresh and delivered to your doorstep, warm and gooey.</p>
+  <p>Explore our mouthwatering selection of chocolate chip, snickerdoodle, and more!</p>
+</div>
+
+<div class="navbar">
+  <a href="/menu">View Our Menu</a>
+  <a href="/about">Learn About Us</a>
+  <a href="/login">Log In</a>
+</div>
+
+<div class="contact">
+  <p>Contact Us: Phone - 123-456-7890 | Email - info@tiffstreats.com</p>
+</div>
+
+<div class="socials">
+  <a href="https://www.facebook.com/tiffstreats">Follow us on Facebook</a>
+  <a href="https://twitter.com/tiffstreats">Follow us on Twitter</a>
+</div>
+
