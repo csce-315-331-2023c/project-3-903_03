@@ -5,6 +5,22 @@
     text-align: center;
     padding: 20px;
   }
+  .extra-text {
+    text-align: center;
+    padding: 20px;
+  }
+  .navbar {
+    text-align: center;
+    padding: 20px;
+  }
+  .contact {
+    text-align: center;
+    padding: 20px;
+  }
+  .socials {
+    text-align: center;
+    padding: 20px;
+  }
 
   h1 {
     font-size: 36px;
@@ -32,13 +48,13 @@
   <button class="order-button">Order Now</button>
 </div>
 
-<div class="extra text">
+<div class="extra-text">
   <p>Founded in 1999, Tiff's Treats is the nation's first warm cookie delivery company.</p>
   <p>Our cookies are baked fresh and delivered to your doorstep, warm and gooey.</p>
   <p>Explore our mouthwatering selection of chocolate chip, snickerdoodle, and more!</p>
 </div>
 
-<div class="nav bar">
+<div class="navbar">
   <a href="/menu">View Our Menu</a>
   <a href="/about">Learn About Us</a>
 </div>
