@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Accordion, AccordionItem } from 'sveltestrap';
+    import Nav from "../Nav.svelte"
 
     const menu_items = [
       {id : 1, name : 'Chocolate Chip Cookie', price : 1.00, calories : 50 },
@@ -8,7 +9,7 @@
       ]
     
   </script>
-  
+  <Nav />
   <head>
     <title>Menu Board</title>    
   </head>
