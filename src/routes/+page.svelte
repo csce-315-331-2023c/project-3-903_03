@@ -59,12 +59,6 @@
   <p>Explore our mouthwatering selection of chocolate chip, snickerdoodle, and more!</p>
 </div>
 
-<div class="navbar">
-  <a href="/menu">View Our Menu</a>
-  <a href="/about">Learn About Us</a>
-  <a href="/login">Log In</a>
-</div>
-
 <div class="contact">
   <p>Contact Us: Phone - 123-456-7890 | Email - info@tiffstreats.com</p>
 </div>
