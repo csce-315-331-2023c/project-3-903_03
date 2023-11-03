@@ -40,4 +40,3 @@
     <a href="/login">login</a>
     <!-- Work on other navigation screens -->
 </nav>
-
