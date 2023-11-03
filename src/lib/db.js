@@ -1,4 +1,6 @@
-import { Pool } from 'pg'
+
+import pkg from 'pg';
+const { Pool } = pkg;
 
 const connectionString = 'postgresql://postgres:Pbk7yhWrq93LDfR@project3.fly.dev:5432/postgres'
  

@@ -1,3 +1,8 @@
+<script>
+  import Nav from "./Nav.svelte";
+</script>
+
+<Nav />
 
 <style>
   /* Add your CSS styles here */
@@ -52,12 +57,6 @@
   <p>Founded in 1999, Tiff's Treats is the nation's first warm cookie delivery company.</p>
   <p>Our cookies are baked fresh and delivered to your doorstep, warm and gooey.</p>
   <p>Explore our mouthwatering selection of chocolate chip, snickerdoodle, and more!</p>
-</div>
-
-<div class="navbar">
-  <a href="/menu">View Our Menu</a>
-  <a href="/about">Learn About Us</a>
-  <a href="/login">Log In</a>
 </div>
 
 <div class="contact">
