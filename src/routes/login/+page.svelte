@@ -20,7 +20,8 @@
 </div>
 
 <nav>
-    <a href="/">home</a>
-    <a href="/login">login</a>
-    <!-- Work on other navigation screens-->
+    <a href="./manager">manager</a>
+    <a href="./customer">customer</a>
+    <a href="./cashier">cashier</a>
+    <!-- Work on other navigation screens-->   
 </nav>

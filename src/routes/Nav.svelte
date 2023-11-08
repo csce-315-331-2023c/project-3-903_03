@@ -21,7 +21,7 @@
   </script>
   
   <Navbar color="light" light expand="md">
-    <NavbarBrand href="/">Tiff's</NavbarBrand>
+    <NavbarBrand href="/">Tiff's Treats</NavbarBrand>
     <NavbarToggler on:click={() => (isOpen = !isOpen)} />
     <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
       <Nav class="ms-auto" navbar>
