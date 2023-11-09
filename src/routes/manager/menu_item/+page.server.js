@@ -20,4 +20,4 @@ export async function load() {
     } finally {
         connection.release();
     }
- }
+}

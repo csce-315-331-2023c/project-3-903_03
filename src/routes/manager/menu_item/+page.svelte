@@ -3,7 +3,7 @@
 
     let name = 'Philip Ritchey'
 
-    import { Table } from 'sveltestrap';
+    import { Table, Button } from 'sveltestrap';
 
     let isOpen = false;
 
@@ -39,7 +39,9 @@ export let data;
     <header >Menu Items</header>
 </div>
 
-<button on:click={toggleEdit}>Toggle Edit Mode</button>
+<Button>Add New Menu Item</Button>
+<Button on:click={toggleEdit}>Edit Mode</Button>
+<Button>Update</Button>
 
 <Table bordered>
     <thead>
@@ -49,6 +51,7 @@ export let data;
             <th>Price</th>
             <th>Calories</th>
             <th>Ingredients</th>
+            <th>Season</th>
         </tr>
     </thead>
     <tbody>

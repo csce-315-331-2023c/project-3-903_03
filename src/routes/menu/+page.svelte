@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Accordion, AccordionItem } from 'sveltestrap';
+  import Nav from "../Nav.svelte";
 
   export let data;
 
@@ -8,6 +9,7 @@
 <head>
   <title>Menu Board</title>    
 </head>
+<Nav />
 
 <div class ="header" style="text-align: center; font-size: 30px">Menu Items</div>
 
