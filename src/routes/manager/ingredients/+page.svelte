@@ -2,8 +2,9 @@
     import Nav from "../../Nav.svelte";
 
     let name = 'Philip Ritchey'
+    
 
-    import { Table, Button } from 'sveltestrap';
+    import { Table, Button, Card, CardBody, CardText} from 'sveltestrap';
 
     let isOpen = false;
 
@@ -16,7 +17,9 @@
         isEditing = !isEditing;
     }
 
-export let data;
+    let cost = 0
+
+    export let data;
 
 </script>
 
@@ -37,13 +40,23 @@ export let data;
 </div>
 
 <div>
-    <header >Ingredients</header>
+    <header style="text-align:center; font-size:25px">Ingredients</header>
 </div>
 
+
 <Button>Add Ingredient</Button>
-<Button on:click={toggleEdit}>Edit Mode</Button>
-<Button>Update</Button>
-<Button>Place Restock Order</Button>
+<Button bind:active={isEditing} on:click={toggleEdit}>Edit Mode</Button>
+<Button>Update</Button>    
+
+
+<div style="float:right">
+    <h>Restock Cost ($) :</h>
+    <input type="number" bind:value={cost} readonly/>
+    <Button on:click={cost}>Place Restock Order</Button>    
+</div>
+
+<div>&nbsp</div>
+
 
 <Table bordered>
     <thead>
@@ -88,7 +101,7 @@ export let data;
             
             <td>
                 {#if i.current_qty <= i.needed_qty}
-                    <td>${(i.cost.slice(2) * (i.needed_qty - i.current_qty)).toFixed(2)}</td>
+                    <td>${(i.cost.slice(1) * (i.needed_qty - i.current_qty)).toFixed(2)}</td>
                 {:else}
                     <td>$0.00</td>
                 {/if}                

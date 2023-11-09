@@ -40,7 +40,7 @@ export let data;
 </div>
 
 <Button>Add New Menu Item</Button>
-<Button on:click={toggleEdit}>Edit Mode</Button>
+<Button bind:active={isEditing} on:click={toggleEdit}>Edit Mode</Button>
 <Button>Update</Button>
 
 <Table bordered>
@@ -65,9 +65,9 @@ export let data;
                     {menu_item.name}
                 {/if}
             </td>
-            <td>
+            <td>              
                 {#if isEditing}
-                    <input type="text" bind:value={menu_item.price}/>
+                    <input type="text" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" bind:value={menu_item.price}/>
                 {:else}
                     {menu_item.price}
                 {/if}
