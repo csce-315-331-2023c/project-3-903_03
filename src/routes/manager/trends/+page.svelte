@@ -13,11 +13,34 @@
         Table
     } from 'sveltestrap';
 
+
+    let selected_report = "";
+    let is_div_visible = false;
+
+    function select_report() {
+        is_div_visible = false;
+    }
+
     let restock = [];
     async function get_restock() {
         const response = await fetch('/manager/trends/get_restock');
         restock = await response.json();
     }
+
+    function generate() {
+        is_div_visible = false;
+        switch(selected_report) {
+            case "usage":
+                break;
+            case "sales":
+                break;
+            case "restock":
+                get_restock();
+                break;
+        }
+        is_div_visible = true;
+    }
+
 
 </script>
 
@@ -40,20 +63,20 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
-            <FormGroup style="width:250px; float:left">
-                <Label for="selectReport" style="font-weight:bold; font-size:20px">Select Report</Label>
-                <Input type="select" name="select" id="selectReport">
-                <option value="usage">Usage</option>
-                <option>Sales</option>
-                <option>Excess</option>
-                <option>Together</option>
-                <option>Restock</option>
+            <FormGroup>
+                <Label for="select_report" style="font-weight:bold; font-size:20px">Select Report</Label>
+                <Input type="select" name="select_report" id="select_report" bind:value={selected_report}>
+                    <option value="usage">Usage</option>
+                    <option value="sales">Sales</option>
+                    <option value="excess">Excess</option>
+                    <option value="together">Together</option>
+                    <option value="restock">Restock</option>
                 </Input>
             </FormGroup>            
         </div>
 
         <div class="col-sm-3">
-            <FormGroup style="width:200px; float:left">
+            <FormGroup>
                 <Label for="fromDate" style="font-weight:bold; font-size:20px">From Date</Label>
                 <Input
                 type="date"
@@ -65,7 +88,7 @@
         </div>
 
         <div class="col-sm-3">
-            <FormGroup style="width:200px; float:left">
+            <FormGroup>
                 <Label for="toDate" style="font-weight:bold; font-size:20px">To Date</Label>
                 <Input
                 type="date"
@@ -77,7 +100,7 @@
         </div>
 
         <div class="col-sm-3">
-            <Button on:click={get_restock} style="width:150px;
+            <Button on:click={generate} style="width:150px;
                            padding:7px;
                            font-size:17px;
                            float: left;
@@ -92,27 +115,38 @@
         <header>Report:</header>
     </div>
 
-    <div>
-        <Table bordered>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Current Qty</th>
-                    <th>Minimum Qty</th>
-                </tr>
-            </thead>
-            <tbody>
-                {#each restock as i}
-                    <tr>
-                        <td>{i.name}</td>
-                        <td>{i.current_qty}</td>
-                        <td>{i.min_qty}</td>
-                    </tr>
-                {/each}
-            </tbody>
-        </Table>
-    </div>
-
+    {#if is_div_visible}
+        {#if selected_report === "usage"}
+            <div>
+                usage report content
+            </div>
+        {:else if selected_report === "sales"}
+            <div>
+                sales report content
+            </div>
+        {:else if selected_report === "restock"}
+            <div>
+                <Table bordered>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Current Qty</th>
+                            <th>Minimum Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {#each restock as i}
+                            <tr>
+                                <td>{i.name}</td>
+                                <td>{i.current_qty}</td>
+                                <td>{i.min_qty}</td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </Table>
+            </div>
+        {/if}
+    {/if}            
 
 </div>
 
