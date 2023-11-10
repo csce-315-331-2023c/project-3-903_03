@@ -28,7 +28,7 @@
 </div>
 
 <div class="center">
-    <Button href="/manager/menu_item" style="margin: 10px; width: 300px;">Menu Items</Button>
-    <Button href="/manager/ingredients" style="margin: 10px; width: 300px">Ingredients</Button>
-    <Button href="/manager/trends" style="margin: 10px; width: 300px">Trends</Button>
+    <Button href="/manager/menu_item" style="margin: 10px; width:200px; padding:10px; font-size:17px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19">Menu Items</Button>
+    <Button href="/manager/ingredients" style="margin: 10px; width: 200px; padding:10px; font-size:17px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19">Ingredients</Button>
+    <Button href="/manager/trends" style="margin: 10px; width: 200px; padding:10px; font-size:17px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19">Trends</Button>
 </div>

@@ -20,31 +20,6 @@
         Label
     } from 'sveltestrap';
 
-    let openUsage = false;
-    let openSales = false;
-
-    let fullscreen;
-
-    const toggleUsage = () => {
-        fullscreen = true;
-        openUsage = !openUsage;
-    };
-
-    const toggleSales = () => {
-        fullscreen = true;
-        openSales = !openSales;
-    };
-
-    const closeUsage = () => {
-        fullscreen = undefined;
-        openUsage = !openUsage;
-    };
-
-    const closeSales = () => {
-        fullscreen = undefined;
-        openSales= !openSales;
-    };
-
 </script>
 
 <style>
@@ -59,84 +34,73 @@
 <title>Manager: Trends</title>
 <Nav />
 
+
 <div>
     <header >Manager: { name }</header>
 </div>
 
-<div>
-    <FormGroup style="width:455px; margin-left:15%">
-        <Label for="selectReport" style="font-weight:bold">Select Report</Label>
-        <Input type="select" name="select" id="selectReport">
-        <option value="usage">Usage</option>
-        <option>Sales</option>
-        <option>Excess</option>
-        <option>Together</option>
-        <option>Restock</option>
-        </Input>
-    </FormGroup>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <FormGroup style="width:250px; float:left">
+                <Label for="selectReport" style="font-weight:bold; font-size:20px">Select Report</Label>
+                <Input type="select" name="select" id="selectReport">
+                <option value="usage">Usage</option>
+                <option>Sales</option>
+                <option>Excess</option>
+                <option>Together</option>
+                <option>Restock</option>
+                </Input>
+            </FormGroup>            
+        </div>
+
+        <div class="col-sm-3">
+            <FormGroup style="width:200px; float:left">
+                <Label for="fromDate" style="font-weight:bold; font-size:20px">From Date</Label>
+                <Input
+                type="date"
+                name="date"
+                id="fromDate"
+                placeholder="date placeholder"
+                />
+            </FormGroup>
+        </div>
+
+        <div class="col-sm-3">
+            <FormGroup style="width:200px; float:left">
+                <Label for="toDate" style="font-weight:bold; font-size:20px">To Date</Label>
+                <Input
+                type="date"
+                name="date"
+                id="toDate"
+                placeholder="date placeholder"
+                />
+            </FormGroup>             
+        </div>
+
+        <div class="col-sm-3">
+            <Button style="width:150px;
+                           padding:7px;
+                           font-size:17px;
+                           float: left;
+                           margin-top: 35px;
+                           box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19">Generate</Button>
+            
+        </div>
+    </div>
+
+    &nbsp
+
+    <div>
+        <header>Report:</header>
+    </div>
+
+    <div>
+        <p>
+            hello
+        </p>
+    </div>
+
+
 </div>
 
-<div style="display:inline">
-    <FormGroup style="width:200px">
-        <Label for="fromDate" style="font-weight:bold">From Date</Label>
-        <Input
-        type="date"
-        name="date"
-        id="fromDate"
-        placeholder="date placeholder"
-        />
-    </FormGroup>
-
-    <FormGroup style="width:200px">
-        <Label for="toDate" style="font-weight:bold">To Date</Label>
-        <Input
-        type="date"
-        name="date"
-        id="toDate"
-        placeholder="date placeholder"
-        />
-    </FormGroup>    
-</div>
-
-
-
-
-<div>&nbsp</div>
-<!-- <div style="width:100%; float:center">
-    <Button on:click={toggleUsage} style="width:200px">Generate</Button>   
-</div> -->
-
-
-<!-- <ButtonDropdown>
-    <DropdownToggle caret style="width:200px">Trends</DropdownToggle>
-    <DropdownMenu>
-        <button style="width:200px; text-align:center; border:none" on:click={toggleUsage}>Usage</button>
-        <button style="width:200px; text-align:center; border:none" on:click={toggleSales}>Sales</button>
-        <button style="width:200px; text-align:center; border:none">Restock</button>  
-        <button style="width:200px; text-align:center; border:none">Excess</button>
-        <button style="width:200px; text-align:center; border:none">Together</button>
-    </DropdownMenu>    
-</ButtonDropdown> -->
-
-
-
-
-<Modal isOpen={openUsage} {fullscreen}>
-    <ModalHeader>Usage</ModalHeader>       
-    <ModalBody>
-        Show usage trend
-    </ModalBody>
-    <ModalFooter>
-      <Button color="secondary" on:click={closeUsage}>Close</Button>
-    </ModalFooter>
-</Modal>
-
-<Modal isOpen={openSales} {fullscreen}>
-    <ModalHeader >Sales</ModalHeader>   
-    <ModalBody>
-        Show sales trend
-    </ModalBody>
-    <ModalFooter>
-      <Button color="secondary" on:click={closeSales}>Close</Button>
-    </ModalFooter>
-</Modal>
