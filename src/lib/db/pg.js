@@ -1,11 +1,14 @@
-import { Pool } from 'pg'
+import pkg from 'pg';
+const { Pool } = pkg;
 
 // Create pool
-export const pool = new Pool({
-    database: 'postgres',
-    user: 'postgres',
-    host: 'project3-db.fly.dev',
-    password: 'IQ4zWl70KfNQFpF',
-    port: 5432
-  });
+const pool = new Pool({
+    user: 'csce315_903_03user',
+    host: 'csce-315-db.engr.tamu.edu',
+    database: 'csce315_903_03db',
+    password: 'lunar little lively',
+    port: 5432,
+});
+
+export default pool;
 

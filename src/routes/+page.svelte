@@ -1,10 +1,8 @@
-<h1>Welcome to Group 3's Project 3 for CSCE 315-903</h1>
-<p>This is a work in progress to be delivered later.</p>
+<script>
+  import Nav from "./Nav.svelte";
+</script>
 
-<nav>
-    <a href="/">home</a>
-    <a href="/login">login</a>
-</nav>
+<Nav />
 
 <style>
   /* Add your CSS styles here */
@@ -61,12 +59,6 @@
   <p>Explore our mouthwatering selection of chocolate chip, snickerdoodle, and more!</p>
 </div>
 
-<div class="navbar">
-  <a href="/menu">View Our Menu</a>
-  <a href="/about">Learn About Us</a>
-  <a href="/login">Log In</a>
-</div>
-
 <div class="contact">
   <p>Contact Us: Phone - 123-456-7890 | Email - info@tiffstreats.com</p>
 </div>
@@ -76,7 +68,3 @@
   <a href="https://twitter.com/tiffstreats">Follow us on Twitter</a>
 </div>
 
-<nav>
-    <a href="/">home</a>
-    <a href="/login">login</a>
-</nav>
