@@ -3,22 +3,21 @@
 
     let name = 'Philip Ritchey'
     
-
     import {
-        DropdownMenu,
-        DropdownToggle,
-		ButtonDropdown,
-        Modal,
-        ModalBody,
-        ModalFooter,
-        ModalHeader,
         Button,
         Form,
         FormGroup,
         FormText,
         Input,
-        Label
+        Label,
+        Table
     } from 'sveltestrap';
+
+    let restock = [];
+    async function get_restock() {
+        const response = await fetch('/manager/trends/get_restock');
+        restock = await response.json();
+    }
 
 </script>
 
@@ -33,7 +32,6 @@
 
 <title>Manager: Trends</title>
 <Nav />
-
 
 <div>
     <header >Manager: { name }</header>
@@ -79,13 +77,12 @@
         </div>
 
         <div class="col-sm-3">
-            <Button style="width:150px;
+            <Button on:click={get_restock} style="width:150px;
                            padding:7px;
                            font-size:17px;
                            float: left;
                            margin-top: 35px;
                            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19">Generate</Button>
-            
         </div>
     </div>
 
@@ -96,9 +93,24 @@
     </div>
 
     <div>
-        <p>
-            hello
-        </p>
+        <Table bordered>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Current Qty</th>
+                    <th>Minimum Qty</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#each restock as i}
+                    <tr>
+                        <td>{i.name}</td>
+                        <td>{i.current_qty}</td>
+                        <td>{i.min_qty}</td>
+                    </tr>
+                {/each}
+            </tbody>
+        </Table>
     </div>
 
 
