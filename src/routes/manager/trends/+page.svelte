@@ -33,11 +33,15 @@
         usage = await response.json();
     }
 
+    let from_date = ''
+    let to_date = ''
     function generate() {
         is_div_visible = false;
         switch(selected_report) {
             case "usage":
-                get_usage('2023-01-01','2023-06-30');
+                console.log(from_date);
+                console.log(to_date);
+                get_usage(from_date, to_date);
                 break;
             case "sales":
                 break;
@@ -86,6 +90,7 @@
             <FormGroup>
                 <Label for="from_date" style="font-weight:bold; font-size:20px">From Date</Label>
                 <Input
+                bind:value={from_date}
                 type="date"
                 name="date"
                 id="from_date"
@@ -98,6 +103,7 @@
             <FormGroup>
                 <Label for="to_date" style="font-weight:bold; font-size:20px">To Date</Label>
                 <Input
+                bind:value={to_date}
                 type="date"
                 name="date"
                 id="to_date"
