@@ -13,7 +13,6 @@
         Table
     } from 'sveltestrap';
 
-
     let selected_report = "";
     let is_div_visible = false;
 
@@ -27,10 +26,18 @@
         restock = await response.json();
     }
 
+    let usage = []
+    async function get_usage(from_date, to_date) {
+        let input = `/manager/trends/get_usage?from_date=${from_date}&to_date=${to_date}`;
+        const response = await fetch(input);
+        usage = await response.json();
+    }
+
     function generate() {
         is_div_visible = false;
         switch(selected_report) {
             case "usage":
+                get_usage('2023-01-01','2023-06-30');
                 break;
             case "sales":
                 break;
@@ -77,11 +84,11 @@
 
         <div class="col-sm-3">
             <FormGroup>
-                <Label for="fromDate" style="font-weight:bold; font-size:20px">From Date</Label>
+                <Label for="from_date" style="font-weight:bold; font-size:20px">From Date</Label>
                 <Input
                 type="date"
                 name="date"
-                id="fromDate"
+                id="from_date"
                 placeholder="date placeholder"
                 />
             </FormGroup>
@@ -89,11 +96,11 @@
 
         <div class="col-sm-3">
             <FormGroup>
-                <Label for="toDate" style="font-weight:bold; font-size:20px">To Date</Label>
+                <Label for="to_date" style="font-weight:bold; font-size:20px">To Date</Label>
                 <Input
                 type="date"
                 name="date"
-                id="toDate"
+                id="to_date"
                 placeholder="date placeholder"
                 />
             </FormGroup>             
@@ -118,7 +125,22 @@
     {#if is_div_visible}
         {#if selected_report === "usage"}
             <div>
-                usage report content
+                <Table bordered>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {#each usage as i}
+                            <tr>
+                                <td>{i.name}</td>
+                                <td>{i.amount}</td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </Table>
             </div>
         {:else if selected_report === "sales"}
             <div>
