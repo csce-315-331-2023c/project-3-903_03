@@ -158,6 +158,7 @@
     {#if is_div_visible}
         {#if selected_report === "usage"}
             <div>
+                <p>Amount of Inventory Used From {from_date} To {to_date}</p>
                 <Table bordered>
                     <thead>
                         <tr>
@@ -177,6 +178,7 @@
             </div>
         {:else if selected_report === "sales"}
             <div>
+                <p>Number of Items Sold From {from_date} To {to_date}</p>
                 <Table bordered>
                     <thead>
                         <tr>
@@ -196,6 +198,7 @@
             </div>
         {:else if selected_report === "excess"}
             <div>
+                <p>List of Menu Items That Only Sold Less Than 10% Of Their Inventory From {from_date} To {to_date}</p>
                 <Table bordered>
                     <thead>
                         <tr>
@@ -217,6 +220,7 @@
             </div>
         {:else if selected_report === "together"}
             <div>
+                <p>Pairs of Menu Items That Sell Together Often From {from_date} To {to_date}</p>
                 <Table bordered>
                     <thead>
                         <tr>
@@ -238,6 +242,7 @@
             </div>
         {:else if selected_report === "restock"}
             <div>
+                <p>Inventory That Is Less Than Minimum Amount To Have Before Restock From {from_date} To {to_date}</p>
                 <Table bordered>
                     <thead>
                         <tr>
