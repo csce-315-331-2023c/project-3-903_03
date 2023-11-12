@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { get_slot_changes } from "svelte/internal";
+	import { get_slot_changes, validate_component } from "svelte/internal";
     import Nav from "../../Nav.svelte";
 
     let name = 'Philip Ritchey'
@@ -14,12 +14,33 @@
         Table
     } from 'sveltestrap';
 
+    let valid_message = '';
+
+    function is_valid_date(date) {
+        const parsedDate = Date.parse(date);
+        return !isNaN(parsedDate);
+    }
+
+    function valid_dates(from_date, to_date) {
+        if (!is_valid_date(from_date)) {
+            valid_message = 'From Date is Invalid';
+            return false;
+        }
+
+        if (!is_valid_date(to_date)) {
+            valid_message = 'To Date is Invalid';
+            return false;
+        }
+        
+        if (from_date > to_date) {
+            valid_message = 'From Date is Greater than To Date';
+            return false;            
+        }
+        return true;
+    }
+
     let selected_report = "";
     let is_div_visible = false;
-
-    function select_report() {
-        is_div_visible = false;
-    }
 
     let restock = [];
     async function get_restock() {
@@ -59,24 +80,43 @@
     let to_date = ''
     function generate() {
         is_div_visible = false;
+        valid_message = '';
         switch(selected_report) {
             case "usage":
-                get_usage(from_date, to_date);
+                if (valid_dates(from_date, to_date)) {
+                    get_usage(from_date, to_date);
+                    is_div_visible = true;
+                }
+                    
                 break;
             case "sales":
-                get_sales(from_date, to_date);
+                if (valid_dates(from_date, to_date)) {
+                    get_sales(from_date, to_date);
+                    is_div_visible = true;
+                }
                 break;
             case "excess":
-                get_excess(from_date, to_date);
+                if (valid_dates(from_date, to_date)) {
+                    get_excess(from_date, to_date);
+                    is_div_visible = true;
+                }
                 break;
             case "together":
-                get_together(from_date, to_date);
+                if (valid_dates(from_date, to_date)) {
+                    get_together(from_date, to_date); 
+                    is_div_visible = true;
+                }   
                 break;
             case "restock":
                 get_restock();
+                is_div_visible = true;
                 break;
         }
-        is_div_visible = true;
+        
+    }
+
+    function handle_input_change() {
+        is_div_visible = false;     
     }
 
 
@@ -103,7 +143,7 @@
         <div class="col-sm-3">
             <FormGroup>
                 <Label for="select_report" style="font-weight:bold; font-size:20px">Select Report</Label>
-                <Input type="select" name="select_report" id="select_report" bind:value={selected_report}>
+                <Input type="select" name="select_report" id="select_report" bind:value={selected_report} on:input={handle_input_change}>
                     <option value="usage">Usage</option>
                     <option value="sales">Sales</option>
                     <option value="excess">Excess</option>
@@ -118,6 +158,7 @@
                 <Label for="from_date" style="font-weight:bold; font-size:20px">From Date</Label>
                 <Input
                 bind:value={from_date}
+                on:input={handle_input_change}
                 type="date"
                 name="date"
                 id="from_date"
@@ -131,6 +172,7 @@
                 <Label for="to_date" style="font-weight:bold; font-size:20px">To Date</Label>
                 <Input
                 bind:value={to_date}
+                on:input={handle_input_change}
                 type="date"
                 name="date"
                 id="to_date"
@@ -152,7 +194,7 @@
     &nbsp
 
     <div>
-        <header>Report:</header>
+        <header>Report: {valid_message}</header>
     </div>
 
     {#if is_div_visible}
@@ -242,7 +284,7 @@
             </div>
         {:else if selected_report === "restock"}
             <div>
-                <p>Inventory That Is Less Than Minimum Amount To Have Before Restock From {from_date} To {to_date}</p>
+                <p>Inventory That Is Less Than Minimum Amount To Have Before Restock</p>
                 <Table bordered>
                     <thead>
                         <tr>

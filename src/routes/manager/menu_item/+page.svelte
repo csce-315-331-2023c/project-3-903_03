@@ -16,7 +16,7 @@
         isEditing = !isEditing;
     }
 
-export let data;
+     export let data;
 </script>
 
 <style>
