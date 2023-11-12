@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { get_slot_changes } from "svelte/internal";
     import Nav from "../../Nav.svelte";
 
     let name = 'Philip Ritchey'
@@ -33,17 +34,23 @@
         usage = await response.json();
     }
 
+    let sales = []
+    async function get_sales(from_date, to_date) {
+        let input = `/manager/trends/get_sales?from_date=${from_date}&to_date=${to_date}`;
+        const response = await fetch(input);
+        sales = await response.json();
+    }
+
     let from_date = ''
     let to_date = ''
     function generate() {
         is_div_visible = false;
         switch(selected_report) {
             case "usage":
-                console.log(from_date);
-                console.log(to_date);
                 get_usage(from_date, to_date);
                 break;
             case "sales":
+                get_sales(from_date, to_date);
                 break;
             case "restock":
                 get_restock();
@@ -150,7 +157,22 @@
             </div>
         {:else if selected_report === "sales"}
             <div>
-                sales report content
+                <Table bordered>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {#each sales as i}
+                            <tr>
+                                <td>{i.name}</td>
+                                <td>{i.amount}</td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </Table>
             </div>
         {:else if selected_report === "restock"}
             <div>
