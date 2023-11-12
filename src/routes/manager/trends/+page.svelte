@@ -41,6 +41,20 @@
         sales = await response.json();
     }
 
+    let excess = []
+    async function get_excess(from_date, to_date) {
+        let input = `/manager/trends/get_excess?from_date=${from_date}&to_date=${to_date}`;
+        const response = await fetch(input);
+        excess = await response.json();
+    }
+
+    let together = []
+    async function get_together(from_date, to_date) {
+        let input = `/manager/trends/get_together?from_date=${from_date}&to_date=${to_date}`;
+        const response = await fetch(input);
+        together = await response.json();
+    }
+
     let from_date = ''
     let to_date = ''
     function generate() {
@@ -51,6 +65,12 @@
                 break;
             case "sales":
                 get_sales(from_date, to_date);
+                break;
+            case "excess":
+                get_excess(from_date, to_date);
+                break;
+            case "together":
+                get_together(from_date, to_date);
                 break;
             case "restock":
                 get_restock();
@@ -169,6 +189,48 @@
                             <tr>
                                 <td>{i.name}</td>
                                 <td>{i.amount}</td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </Table>
+            </div>
+        {:else if selected_report === "excess"}
+            <div>
+                <Table bordered>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Ten Percent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {#each excess as i}
+                            <tr>
+                                <td>{i.name}</td>
+                                <td>{i.amount}</td>
+                                <td>{i.ten_percent}</td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </Table>
+            </div>
+        {:else if selected_report === "together"}
+            <div>
+                <Table bordered>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Name</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {#each together as i}
+                            <tr>
+                                <td>{i.name1}</td>
+                                <td>{i.name2}</td>
+                                <td>{i.frequency}</td>
                             </tr>
                         {/each}
                     </tbody>

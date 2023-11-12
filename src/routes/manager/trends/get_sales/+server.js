@@ -19,7 +19,7 @@ export async function GET({url}) {
     // console.log(sql);
     try {
         const result = await connection.query(sql, [from_date, to_date]);
-        console.log(result.rows);
+        // console.log(result.rows);
         return json(result.rows);
     } finally {
         connection.release();
