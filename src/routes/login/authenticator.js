@@ -1,19 +1,49 @@
-let username = '';
-let password = '';
+import pool from "$lib/db/pg";
+/** @type {import('./$types').PageServerLoad} */
 
-async function handleLogin() {
+export async function login(username, password) {
+    //alert("HELLO");
+    //console.log("hello");
+    var pword = password;
+    var uname = username;
 
-const response = await fetch('/api/posts', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ username, password }),
-});
+    let connection = await pool.connect();
+    let sqlTemplate = "SELECT name FROM _user WHERE username = '?' and password = '?';";
+    console.log(sqlTemplate);
+    let sql = "";
+    var unknown = 1;
+    
+    for (var i = 0; i < sqlTemplate.length; i ++) {
+        //console.log(i);
+        //console.log(sqlTemplate[i]);
+        if (sqlTemplate[i] == "?" && unknown == 1) {
+            
+            if (uname == "") {
 
-  if (response.status === 200) {
-    print("success");
-  } else {
-    print("error");
-  }
-}
+              return 1;
+            }
+            sql += username;
+            unknown ++;
+        } else if (sqlTemplate[i] == "?" && unknown == 2) {
+
+            if (pword == "") {
+
+              return 1
+            }
+            sql += pword;
+        } else {
+
+            sql += sqlTemplate[i];
+        }
+    }
+
+    console.log(sql);
+
+    try {
+        const result = await connection.query(sql);
+        console.log(result.rows);
+        return { _user : result.rows, };
+    } finally {
+        connection.release();
+    } 
+ }

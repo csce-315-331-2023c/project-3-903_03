@@ -1,17 +1,15 @@
 import pool from "$lib/db/pg";
 /** @type {import('./$types').PageServerLoad} */
 
-
-export async function load() {
-
+export async function _login(username, password) {
     //alert("HELLO");
     //console.log("hello");
-    var password = "";
-    var username = "";
+    var pword = password;
+    var uname = username;
 
     let connection = await pool.connect();
     let sqlTemplate = "SELECT name FROM _user WHERE username = '?' and password = '?';";
-    //console.log(sqlTemplate);
+    console.log(sqlTemplate);
     let sql = "";
     var unknown = 1;
     
@@ -20,19 +18,19 @@ export async function load() {
         //console.log(sqlTemplate[i]);
         if (sqlTemplate[i] == "?" && unknown == 1) {
             
-            if (username == "") {
+            if (uname == "") {
 
-                username = "aweng";
-                unknown ++;
+              return 1;
             }
             sql += username;
+            unknown ++;
         } else if (sqlTemplate[i] == "?" && unknown == 2) {
 
-            if (password == "") {
+            if (pword == "") {
 
-                password = "jump560";
+              return 1
             }
-            sql += password;
+            sql += pword;
         } else {
 
             sql += sqlTemplate[i];
@@ -48,7 +46,4 @@ export async function load() {
     } finally {
         connection.release();
     } 
-
  }
-
- 
