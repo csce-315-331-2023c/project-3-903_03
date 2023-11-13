@@ -1,21 +1,108 @@
 <script>
     import Nav from "../../Nav.svelte";
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        get_ingredients();
+        return () => {
+        };
+    });
 
     let name = 'Philip Ritchey'
 
-    import { Table, Button } from 'sveltestrap';
+    import {
+        Table, 
+        Button,
+        Modal,
+        ModalBody,
+        ModalFooter,
+        ModalHeader,
+        Form,
+        FormGroup,
+        FormText,
+        Input,
+        Label
+    } from 'sveltestrap';
 
-    // let isEditing = false;
-    // function toggleEdit() {
-    //     isEditing = !isEditing;
-    // }
+    let ingredients = [];
+    async function get_ingredients() {
+        let input = `/manager/menu_item/get_ingredients`;
+        const response = await fetch(input);
+        ingredients = await response.json();
+    }
+    
+    let open_add = false;
 
+    function toggle_menu_item() {
+        open_add = !open_add;
+    }
+
+    function cancel_menu_item() {
+        toggle_menu_item();
+    }
+
+    async function add_item_ingredients(id) {
+        const data = {
+            id: id,
+            ingredients: mi_ingredients,
+        };
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        console.log(mi_ingredients);
+        const response = await fetch('/manager/menu_item/post_ingredients', options);
+        await response.json();
+    }
+
+    let mi_name = '';
+    let mi_price = '';
+    let mi_calories = 0;
+    let mi_ingredients = [];
+    async function add_menu_item() {
+        toggle_menu_item();
+        const data = {
+            name: mi_name,
+            price: mi_price,
+            calories: mi_calories,
+        };
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        const response = await fetch('/manager/menu_item/post', options);
+        let value = await response.json();
+        add_item_ingredients(value.id);
+        mi_name = '';
+        mi_price = 0;
+        mi_calories = 0;
+    }
+
+    function handleCheckboxChange(event, item) {
+        if (event.target.checked) {
+            mi_ingredients = [...mi_ingredients, item];
+        } else {
+            mi_ingredients = mi_ingredients.filter(ingredient_group => ingredient_group !== item);
+        }
+    }
+
+    let open_modal = false;
     let editable_row = null;
     function toggle_edit(row) {
-        if (editable_row === row)
+        if (editable_row === row) {
             editable_row = null;
-        else
+            open_modal = !open_modal;
+        }                  
+        else {
             editable_row = row;
+            open_modal = !open_modal;
+        } 
     }
 
     async function update_row(row) {
@@ -25,7 +112,6 @@
             name: row.name,
             price : row.price,
         };
-        console.log(data);
         const options = {
             method: 'PATCH',
             headers: {
@@ -63,9 +149,67 @@
     <header >Menu Items</header>
 </div>
 
-<!-- <Button>Add New Menu Item</Button>
-<Button bind:active={isEditing} on:click={toggleEdit}>Edit Mode</Button>
-<Button>Update</Button> -->
+<div>
+    <Button color="primary" style="margin-left:25px" on:click={toggle_menu_item}>Add New Menu Item</Button>
+    <Modal isOpen={open_add} backdrop={false} {toggle_menu_item} >
+        <ModalHeader style="background-color:gray; color:white" {toggle_menu_item} >Add New Menu Item</ModalHeader>
+        <ModalBody style="background-color:lightgray">
+            <FormGroup>
+                <Label for="name">Name</Label>
+                <Input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="name"
+                    bind:value={mi_name}
+                />
+            </FormGroup>
+
+            <FormGroup>
+                <Label for="price">Price</Label>
+                <Input
+                    type="text"
+                    name="price"
+                    id="price"
+                    placeholder="price"
+                    bind:value={mi_price}
+                />
+            </FormGroup>
+
+            <FormGroup>
+                <Label for="calories">Calories</Label>
+                <Input
+                    type="number"
+                    name="calories"
+                    id="calories"
+                    placeholder="calories"
+                    bind:value={mi_calories}
+                />
+            </FormGroup>
+
+            <FormGroup>
+                <Label for="ingredient_group">Ingredients</Label>
+                {#each ingredients as i}
+                    <Input
+                        id={i.ingredient_id}
+                        type="checkbox"
+                        bind:group={mi_ingredients}
+                        value="{i.name}"
+                        on:change={(event) => handleCheckboxChange(event, i)}
+                        label={i.name}
+                    />
+                {/each}
+            </FormGroup>
+            
+
+        </ModalBody>
+        <ModalFooter style="background-color:grey">
+            <Button color="primary" on:click={add_menu_item}>Add New Item</Button>
+            <Button color="light" on:click={cancel_menu_item}>Cancel</Button>
+        </ModalFooter>
+    </Modal>
+</div>
+&nbsp 
 
 <Table bordered>
     <thead>
@@ -79,30 +223,41 @@
     </thead>
     <tbody>
         {#each menu_items as menu_item}
-        <tr class:editable={menu_item === editable_row}>
+        <tr>
             <td>{menu_item.menu_item_id}</td>
             <td>
-                {#if menu_item === editable_row}
+                <!-- {#if menu_item === editable_row}
                     <input type="text" bind:value={menu_item.name}/>
                 {:else}
                     {menu_item.name}
-                {/if}
+                {/if} -->
+                {menu_item.name}
             </td>
             <td>              
-                {#if menu_item === editable_row}
+                <!-- {#if menu_item === editable_row}
                     <input type="text" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" bind:value={menu_item.price}/>
                 {:else}
                     {menu_item.price}
-                {/if}
+                {/if} -->
+                {menu_item.price}
             </td>    
             <td>{menu_item.calories}</td>
             <td>{menu_item.ingredients}</td>
             <td>
                 {#if menu_item !== editable_row}
-                    <Button on:click={() => toggle_edit(menu_item)}>edit</Button>
-                {:else}
-                    <Button on:click={() => update_row(menu_item)}>update</Button>
-                    <Button on:click={() => toggle_edit(menu_item)}>cancel</Button>
+                    <div>
+                        <Button on:click={() => toggle_edit(menu_item)}>edit</Button>
+                        <Modal isOpen={open_modal} backdrop={false} {toggle_edit}>
+                            <ModalHeader {toggle_edit}>Modal Title</ModalHeader>
+                            <ModalBody>
+                                Clicking outside modal or hitting Escape does not dismiss.
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="primary" on:click={update_row}>Update</Button>
+                                <Button color="secondary" on:click={toggle_edit}>Cancel</Button>
+                            </ModalFooter>
+                        </Modal>                        
+                    </div>               
                 {/if}
             </td>
         </tr>
