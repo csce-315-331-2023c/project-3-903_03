@@ -8,8 +8,6 @@
         };
     });
 
-    let name = 'Philip Ritchey'
-
     import {
         Table, 
         Button,
@@ -24,14 +22,24 @@
         Label
     } from 'sveltestrap';
 
+    let name = 'Philip Ritchey'
+
     let ingredients = [];
+
+    let mi_name = '';
+    let mi_price = '';
+    let mi_calories = 0;
+    let mi_ingredients = [];
+
+    let open_modal = false;
+    let editable_row = null;
+    let open_add = false;
+
     async function get_ingredients() {
         let input = `/manager/menu_item/get_ingredients`;
         const response = await fetch(input);
         ingredients = await response.json();
     }
-    
-    let open_add = false;
 
     function toggle_menu_item() {
         open_add = !open_add;
@@ -58,10 +66,6 @@
         await response.json();
     }
 
-    let mi_name = '';
-    let mi_price = '';
-    let mi_calories = 0;
-    let mi_ingredients = [];
     async function add_menu_item() {
         toggle_menu_item();
         const data = {
@@ -92,8 +96,7 @@
         }
     }
 
-    let open_modal = false;
-    let editable_row = null;
+
     function toggle_edit(row) {
         if (editable_row === row) {
             editable_row = null;
@@ -146,7 +149,7 @@
 </div>
 
 <div>
-    <header >Menu Items</header>
+    <header style="text-align:center; font-size:25px">Menu Items</header>
 </div>
 
 <div>
@@ -219,6 +222,7 @@
             <th>Price</th>
             <th>Calories</th>
             <th>Ingredients</th>
+            <th>Edit Button</th>
         </tr>
     </thead>
     <tbody>
@@ -246,7 +250,7 @@
             <td>
                 {#if menu_item !== editable_row}
                     <div>
-                        <Button on:click={() => toggle_edit(menu_item)}>edit</Button>
+                        <Button color="primary" on:click={() => toggle_edit(menu_item)}>Edit</Button>
                         <Modal isOpen={open_modal} backdrop={false} {toggle_edit}>
                             <ModalHeader {toggle_edit}>Modal Title</ModalHeader>
                             <ModalBody>
