@@ -1,9 +1,13 @@
 <script lang="ts">
   import { Accordion, AccordionItem } from 'sveltestrap';
+  import Nav from "$lib/Nav.svelte";
+
 
   export let data;
 
 </script>
+
+<Nav />
   
 <head>
   <title>Menu Board</title>    
