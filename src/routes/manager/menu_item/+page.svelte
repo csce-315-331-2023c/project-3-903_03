@@ -97,16 +97,27 @@
     }
 
 
-    function toggle_edit(row) {
-        if (editable_row === row) {
-            editable_row = null;
-            open_modal = !open_modal;
-        }                  
-        else {
-            editable_row = row;
-            open_modal = !open_modal;
-        } 
+    let open_edit = false;
+    let e_mi_name = '';
+    let e_mi_price = '';
+    let e_mi_calories = 0;
+
+    function toggle_edit() {
+        open_edit = !open_edit;
+
     }
+
+    function toggle(menu_item) {
+        open_edit = !open_edit;
+        e_mi_name = menu_item.name;
+        e_mi_price = menu_item.price;
+        e_mi_calories = menu_item.calories;
+    }
+
+    function cancel_edit() {
+        toggle_edit();
+    }
+
 
     async function update_row(row) {
         console.log(row);
@@ -226,7 +237,7 @@
         </tr>
     </thead>
     <tbody>
-        {#each menu_items as menu_item}
+        {#each menu_items as menu_item }
         <tr>
             <td>{menu_item.menu_item_id}</td>
             <td>
@@ -248,21 +259,51 @@
             <td>{menu_item.calories}</td>
             <td>{menu_item.ingredients}</td>
             <td>
-                {#if menu_item !== editable_row}
-                    <div>
-                        <Button color="primary" on:click={() => toggle_edit(menu_item)}>Edit</Button>
-                        <Modal isOpen={open_modal} backdrop={false} {toggle_edit}>
-                            <ModalHeader {toggle_edit}>Modal Title</ModalHeader>
-                            <ModalBody>
-                                Clicking outside modal or hitting Escape does not dismiss.
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button color="primary" on:click={update_row}>Update</Button>
-                                <Button color="secondary" on:click={toggle_edit}>Cancel</Button>
-                            </ModalFooter>
-                        </Modal>                        
-                    </div>               
-                {/if}
+                <div>
+                    <Button color="primary" style="margin-left:25px" on:click={toggle(menu_item)}>Edit</Button>
+                    <Modal isOpen={open_edit} backdrop={false} {toggle_edit} >
+                        <ModalHeader style="background-color:gray; color:white" {toggle_edit} >Edit Menu Item</ModalHeader>
+                        <ModalBody style="background-color:lightgray">
+                            <FormGroup>
+                                <Label for="name">Name</Label>
+                                <Input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    placeholder="name"
+                                    bind:value={e_mi_name}
+                                />
+                            </FormGroup>
+                
+                            <FormGroup>
+                                <Label for="price">Price</Label>
+                                <Input
+                                    type="text"
+                                    name="price"
+                                    id="price"
+                                    placeholder="price"
+                                    bind:value={e_mi_price}
+                                />
+                            </FormGroup>
+                
+                            <FormGroup>
+                                <Label for="calories">Calories</Label>
+                                <Input
+                                    type="number"
+                                    name="calories"
+                                    id="calories"
+                                    placeholder="calories"
+                                    bind:value={e_mi_calories}
+                                />
+                            </FormGroup>
+                
+                        </ModalBody>
+                        <ModalFooter style="background-color:grey">
+                            <Button color="primary" on:click={update_row}>Update</Button>
+                            <Button color="light" on:click={cancel_edit}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>
+                </div>
             </td>
         </tr>
         {/each}
