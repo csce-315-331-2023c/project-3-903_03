@@ -6,9 +6,6 @@
 
     import { Table,
              Button,
-             Card,
-             CardBody,
-             CardText,
              Modal,
              ModalBody,
              ModalFooter,
@@ -18,17 +15,12 @@
              Label
             } from 'sveltestrap';
 
-    let isOpen = false;
-
-    let ingredients = [];
 
     let i_name = '';
     let i_current = 0;
     let i_needed = 0;
     let i_cost = '';
 
-    let open_modal = false;
-    let editable_row = null;
 
     function toggle_ingredient() {
         open_add = !open_add;
@@ -61,9 +53,20 @@
 
     let open_add = false;
 
-    let cost = 0
+    function place_restock() {
+        
+    }
+
+    let total_restock = 0;
+    function calculate_total_restock() {
+        total_restock = 0;
+        for (const i of data.ingredients) {
+            total_restock += (Number(i.cost.slice(1)) * (i.needed_qty - i.current_qty));
+        }
+    }  
 
     export let data;
+    calculate_total_restock();
 
 </script>
 
@@ -167,8 +170,8 @@
 
 <div style="float:right">
     <h>Restock Cost ($) :</h>
-    <input type="number" bind:value={cost} readonly/>
-    <Button>Place Restock Order</Button>    
+    <input type="text" bind:value={total_restock} readonly/>
+    <Button on:click={place_restock}>Place Restock Order</Button>    
 </div>
 
 <div>&nbsp</div>
@@ -189,43 +192,18 @@
         {#each data.ingredients as i}
         <tr>
             <td>{i.ingredient_id}</td>
-            <td>
-                <!-- {#if isEditing}
-                    <input type="text" bind:value={i.name}/>
-                {:else}
-                    {i.name}
-                {/if} -->
-                {i.name}
-            </td>
-
-            <td>
-                <!-- {#if isEditing}
-                    <input type="text" bind:value={i.current_qty}/>
-                {:else}
-                    {i.current_qty}
-                {/if} -->
-                {i.current_qty}
-            </td>
-
-            <td>
-                <!-- {#if isEditing}
-                    <input type="text" bind:value={i.needed_qty}/>
-                {:else}
-                    {i.needed_qty}
-                {/if} -->
-                {i.needed_qty}
-            </td>
-
+            <td>{i.name}</td>
+            <td>{i.current_qty}</td>
+            <td>{i.needed_qty}</td>
             <td>{i.cost}</td>
             
             <td>
                 {#if i.current_qty <= i.needed_qty}
-                    <td>${(i.cost.slice(1) * (i.needed_qty - i.current_qty)).toFixed(2)}</td>
+                    ${(i.cost.slice(1) * (i.needed_qty - i.current_qty)).toFixed(2)}
                 {:else}
-                    <td>$0.00</td>
-                {/if}                
-            </td>
-
+                    $0.00
+                {/if}
+            </td>    
         </tr>
         {/each}
     </tbody>
