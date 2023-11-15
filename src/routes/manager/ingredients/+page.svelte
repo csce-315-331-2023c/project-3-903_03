@@ -1,7 +1,8 @@
 <script>
     import Nav from "../../Nav.svelte";
 
-    let name = 'Philip Ritchey'
+    let manager_name = 'Philip Ritchey'
+    let manager_id = 1;
     
 
     import { Table,
@@ -45,27 +46,90 @@
             },
             body: JSON.stringify(data),
         };
-        const response = await fetch('/manager/menu_item/post_ingredient', options);
+        const response = await fetch('/manager/ingredients/post_ingredient', options);
         await response.json();
         i_name = '';
         i_cost = 0;
     }
 
-    let open_add = false;
+    let open_add = false; 
+    
+    let post_ingredients = [];
+    
+    async function post_restock_ingredient(id) {
+        const data = {
+            r_id: id,
+            ingredients: post_ingredients,
+        };
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        const response = await fetch('/manager/ingredients/post_restock_ingredient', options);
+        await response.json();
+    }
 
-    function place_restock() {
+    async function patch_ingredients() {
+        const data = {
+            ingredients: post_ingredients,
+        };
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        const response = await fetch('/manager/ingredients/patch_ingredients', options);
+        await response.json();
+    }
+
+    const current_date = new Date();
+    const year = current_date.getFullYear();
+    const month = (current_date.getMonth() + 1).toString().padStart(2, '0');
+    const day = current_date.getDate().toString().padStart(2, '0');
+    const formatted_date = `'${year}-${month}-${day}'`;
+
+    async function post_restock() {
+        const data = {
+            id: manager_id,
+            restock_date: String(formatted_date),
+            cost: total_restock,
+        };
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        const response = await fetch('/manager/ingredients/post_restock', options);
+        let value = await response.json();
         
+        post_restock_ingredient(value.id);
+        patch_ingredients();
+        location.reload();
     }
 
     let total_restock = 0;
     function calculate_total_restock() {
         total_restock = 0;
         for (const i of data.ingredients) {
-            total_restock += (Number(i.cost.slice(1)) * (i.needed_qty - i.current_qty));
+            const qty = i.needed_qty - i.current_qty;
+            if (qty <= 0)
+                continue;
+            total_restock += (Number(i.cost.slice(1)) * qty);
+            post_ingredients.push({'ingredient_id' : i.ingredient_id, 'quantity' : qty, 'needed_qty':i.needed_qty});
+            
         }
     }  
 
     export let data;
+    let ingredients = data.ingredients;
+    ingredients.sort((a, b) => a.ingredient_id - b.ingredient_id);
     calculate_total_restock();
 
 </script>
@@ -83,7 +147,7 @@
 <Nav />
 
 <div>
-    <header >Manager: { name }</header>
+    <header >Manager: { manager_name }</header>
 </div>
 
 <div>
@@ -171,7 +235,7 @@
 <div style="float:right">
     <h>Restock Cost ($) :</h>
     <input type="text" bind:value={total_restock} readonly/>
-    <Button on:click={place_restock}>Place Restock Order</Button>    
+    <Button on:click={post_restock}>Place Restock Order</Button>    
 </div>
 
 <div>&nbsp</div>
@@ -189,7 +253,7 @@
         </tr>
     </thead>
     <tbody>
-        {#each data.ingredients as i}
+        {#each ingredients as i}
         <tr>
             <td>{i.ingredient_id}</td>
             <td>{i.name}</td>

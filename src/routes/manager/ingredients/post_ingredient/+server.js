@@ -15,7 +15,7 @@ export async function POST( {request} ) {
         const id = result.rows[0].ingredient_id;
         return json({success: true, id: id});
     } catch {
-        console.error('Error updating row: ');
+        console.error('Error updating post_ingredient: ');
         return json({sucess: false, error: 'Failed to updated row'});
     } finally {
         connection.release();

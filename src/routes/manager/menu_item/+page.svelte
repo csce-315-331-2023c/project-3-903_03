@@ -104,7 +104,6 @@
 
     function toggle_edit() {
         open_edit = !open_edit;
-
     }
 
     function toggle(menu_item) {

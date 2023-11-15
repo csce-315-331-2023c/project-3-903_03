@@ -1,15 +1,18 @@
 import pool from "$lib/db/pg";
 import { json } from '@sveltejs/kit';
 
-export async function POST( {request} ) {    
+export async function PATCH( {request} ) {
     let connection = await pool.connect();
-    const { id, ingredients } = await request.json();
+    const {ingredients} = await request.json();
+
     try {
         for (const ingredient of ingredients) {
-            const query = `INSERT INTO _item_ingredient (ingredient_id, menu_item_id, quantity) \
-                            VALUES (${ingredient.ingredient_id}, ${id}, 1);`;
-
-            const result = await connection.query(query);
+            const sql = `UPDATE _ingredient \
+                SET current_qty = ${ingredient.needed_qty} \
+                WHERE ingredient_id = ${ingredient.ingredient_id};`;
+            
+            await connection.query(sql);
+            console.log(sql);           
         }
         return json({success: true, data: null});
     } catch {
