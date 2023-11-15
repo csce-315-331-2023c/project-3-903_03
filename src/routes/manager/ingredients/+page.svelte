@@ -235,7 +235,7 @@
 <div style="float:right">
     <h>Restock Cost ($) :</h>
     <input type="text" bind:value={total_restock} readonly/>
-    <Button on:click={post_restock}>Place Restock Order</Button>    
+    <Button on:click={post_restock} >Place Restock Order</Button>    
 </div>
 
 <div>&nbsp</div>

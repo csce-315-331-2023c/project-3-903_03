@@ -258,7 +258,7 @@
             <td>{menu_item.calories}</td>
             <td>{menu_item.ingredients}</td>
             <td>
-                <div>
+                <!-- <div>
                     <Button color="primary" style="margin-left:25px" on:click={toggle(menu_item)}>Edit</Button>
                     <Modal isOpen={open_edit} backdrop={false} {toggle_edit} >
                         <ModalHeader style="background-color:gray; color:white" {toggle_edit} >Edit Menu Item</ModalHeader>
@@ -302,7 +302,7 @@
                             <Button color="light" on:click={cancel_edit}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
-                </div>
+                </div> -->
             </td>
         </tr>
         {/each}

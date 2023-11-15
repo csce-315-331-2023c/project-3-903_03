@@ -11,8 +11,7 @@ export async function PATCH( {request} ) {
                 SET current_qty = ${ingredient.needed_qty} \
                 WHERE ingredient_id = ${ingredient.ingredient_id};`;
             
-            await connection.query(sql);
-            console.log(sql);           
+            await connection.query(sql);         
         }
         return json({success: true, data: null});
     } catch {
