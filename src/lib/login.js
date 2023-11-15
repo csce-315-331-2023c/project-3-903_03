@@ -1,4 +1,7 @@
-export async function _login(username, password) {
+import pool from "$lib/db/pg";
+/** @type {import('./$types').PageServerLoad} */
+
+export async function login(username, password) {
     //alert("HELLO");
     //console.log("hello");
     var pword = password;
@@ -43,9 +46,4 @@ export async function _login(username, password) {
     } finally {
         connection.release();
     } 
- }
-
- function big() {
-
-    alert("big");
  }
