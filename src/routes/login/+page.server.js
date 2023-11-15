@@ -1,13 +1,13 @@
 import pool from "$lib/db/pg";
 /** @type {import('./$types').PageServerLoad} */
-
+import { _updateClient } from './+page.js';
 
 export async function load() {
 
     //alert("HELLO");
     //console.log("hello");
-    var password = "";
-    var username = "";
+    let username = "uname";
+    let password = "pword";
 
     let connection = await pool.connect();
     let sqlTemplate = "SELECT name FROM _user WHERE username = '?' and password = '?';";
@@ -23,10 +23,10 @@ export async function load() {
             if (username == "") {
 
                 username = "aweng";
-                unknown ++;
             }
             sql += username;
-        } else if (sqlTemplate[i] == "?" && unknown == 2) {
+            unknown ++;
+        } else if (sqlTemplate[i] == "?") {
 
             if (password == "") {
 
@@ -41,6 +41,7 @@ export async function load() {
 
     console.log(sql);
 
+    _updateClient();
     try {
         const result = await connection.query(sql);
         console.log(result.rows);
@@ -48,7 +49,24 @@ export async function load() {
     } finally {
         connection.release();
     } 
-
+    
  }
+ export async function actions(request) {
 
- 
+    if (request.method === 'POST') {
+      const { username } = JSON.parse(request.body);
+  
+      let connection = await pool.connect();
+      let sql = `SELECT name FROM _user WHERE username = $1`;
+  
+      try {
+        const result = await connection.query(sql, [username]);
+        console.log(result.rows);
+        return {
+          body: JSON.stringify({ _user: result.rows }),
+        };
+      } finally {
+        connection.release();
+      }
+    }
+  }
