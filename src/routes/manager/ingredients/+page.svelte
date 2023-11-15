@@ -1,5 +1,11 @@
 <script>
     import Nav from "../../Nav.svelte";
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        return () => {
+        };
+    });
 
     let manager_name = 'Philip Ritchey'
     let manager_id = 1;
@@ -50,6 +56,7 @@
         await response.json();
         i_name = '';
         i_cost = 0;
+        location.reload();
     }
 
     let open_add = false; 
@@ -70,6 +77,7 @@
         };
         const response = await fetch('/manager/ingredients/post_restock_ingredient', options);
         await response.json();
+        location.reload();
     }
 
     async function patch_ingredients() {
@@ -85,6 +93,7 @@
         };
         const response = await fetch('/manager/ingredients/patch_ingredients', options);
         await response.json();
+        location.reload();
     }
 
     const current_date = new Date();
@@ -109,8 +118,8 @@
         const response = await fetch('/manager/ingredients/post_restock', options);
         let value = await response.json();
         
+        patch_ingredients();        
         post_restock_ingredient(value.id);
-        patch_ingredients();
         location.reload();
     }
 

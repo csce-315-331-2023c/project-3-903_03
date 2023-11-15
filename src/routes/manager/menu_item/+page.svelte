@@ -64,6 +64,7 @@
         console.log(mi_ingredients);
         const response = await fetch('/manager/menu_item/post_ingredients', options);
         await response.json();
+        location.reload();
     }
 
     async function add_menu_item() {
@@ -86,6 +87,7 @@
         mi_name = '';
         mi_price = 0;
         mi_calories = 0;
+        location.reload();
     }
 
     function handleCheckboxChange(event, item) {
