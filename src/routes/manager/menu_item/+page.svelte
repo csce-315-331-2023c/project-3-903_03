@@ -64,7 +64,6 @@
         console.log(mi_ingredients);
         const response = await fetch('/manager/menu_item/post_ingredients', options);
         await response.json();
-        location.reload();
     }
 
     async function add_menu_item() {
@@ -87,7 +86,6 @@
         mi_name = '';
         mi_price = 0;
         mi_calories = 0;
-        location.reload();
     }
 
     function handleCheckboxChange(event, item) {
@@ -108,11 +106,12 @@
         open_edit = !open_edit;
     }
 
-    function toggle(menu_item) {
+    function toggle(id) {
         open_edit = !open_edit;
-        e_mi_name = menu_item.name;
-        e_mi_price = menu_item.price;
-        e_mi_calories = menu_item.calories;
+        console.log(id);
+        // e_mi_name = menu_item.name;
+        // e_mi_price = menu_item.price;
+        // e_mi_calories = menu_item.calories;
     }
 
     function cancel_edit() {
@@ -241,29 +240,15 @@
         {#each menu_items as menu_item }
         <tr>
             <td>{menu_item.menu_item_id}</td>
-            <td>
-                <!-- {#if menu_item === editable_row}
-                    <input type="text" bind:value={menu_item.name}/>
-                {:else}
-                    {menu_item.name}
-                {/if} -->
-                {menu_item.name}
-            </td>
-            <td>              
-                <!-- {#if menu_item === editable_row}
-                    <input type="text" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" bind:value={menu_item.price}/>
-                {:else}
-                    {menu_item.price}
-                {/if} -->
-                {menu_item.price}
-            </td>    
+            <td>{menu_item.name}</td>
+            <td>{menu_item.price}</td>    
             <td>{menu_item.calories}</td>
             <td>{menu_item.ingredients}</td>
             <td>
-                <!-- <div>
-                    <Button color="primary" style="margin-left:25px" on:click={toggle(menu_item)}>Edit</Button>
+                <div>
+                    <Button color="primary" style="margin-left:25px" on:click={toggle}>Edit</Button>
                     <Modal isOpen={open_edit} backdrop={false} {toggle_edit} >
-                        <ModalHeader style="background-color:gray; color:white" {toggle_edit} >Edit Menu Item</ModalHeader>
+                        <ModalHeader style="background-color:gray; color:white" {toggle_edit} >Edit Menu Item {menu_item.name}</ModalHeader>
                         <ModalBody style="background-color:lightgray">
                             <FormGroup>
                                 <Label for="name">Name</Label>
@@ -304,7 +289,7 @@
                             <Button color="light" on:click={cancel_edit}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
-                </div> -->
+                </div>
             </td>
         </tr>
         {/each}
