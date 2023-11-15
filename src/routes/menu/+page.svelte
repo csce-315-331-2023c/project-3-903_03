@@ -12,7 +12,7 @@
 <div class ="header" style="text-align: center; font-size: 30px">Menu Items</div>
 
 
-<Accordion stayOpen={false}>
+<Accordion stayOpen>
   {#each data.menu_items as menu_item}
     <AccordionItem header={menu_item.name}>
       <img src = "favicon.png" alt = {menu_item.name}>
