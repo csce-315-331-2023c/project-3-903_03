@@ -1,13 +1,6 @@
 <script>
     import Nav from "../../Nav.svelte";
     import { onMount } from 'svelte';
-
-    onMount(() => {
-        get_ingredients();
-        return () => {
-        };
-    });
-
     import {
         Table, 
         Button,
@@ -22,18 +15,11 @@
         Label
     } from 'sveltestrap';
 
-    let name = 'Philip Ritchey'
-
-    let ingredients = [];
-
-    let mi_name = '';
-    let mi_price = '';
-    let mi_calories = 0;
-    let mi_ingredients = [];
-
-    let open_modal = false;
-    let editable_row = null;
-    let open_add = false;
+    onMount(() => {
+        get_ingredients();
+        return () => {
+        };
+    });
 
     async function get_ingredients() {
         let input = `/manager/menu_item/get_ingredients`;
@@ -41,18 +27,28 @@
         ingredients = await response.json();
     }
 
-    function toggle_menu_item() {
-        open_add = !open_add;
+    let name = 'Philip Ritchey'
+
+    let ingredients = [];
+
+    let add_name = '';
+    let add_price = '';
+    let add_calories = 0;
+    let add_ingredients = [];
+    let add_open = false;
+
+    function add_toggle() {
+        add_open = !add_open;
     }
 
-    function cancel_menu_item() {
-        toggle_menu_item();
+    function add_cancel() {
+        add_toggle();
     }
 
     async function add_item_ingredients(id) {
         const data = {
             id: id,
-            ingredients: mi_ingredients,
+            ingredients: add_ingredients,
         };
         const options = {
             method: 'POST',
@@ -61,17 +57,17 @@
             },
             body: JSON.stringify(data),
         };
-        console.log(mi_ingredients);
+        console.log(add_ingredients);
         const response = await fetch('/manager/menu_item/post_ingredients', options);
         await response.json();
     }
 
     async function add_menu_item() {
-        toggle_menu_item();
+        add_toggle();
         const data = {
-            name: mi_name,
-            price: mi_price,
-            calories: mi_calories,
+            name: add_name,
+            price: add_price,
+            calories: add_calories,
         };
         const options = {
             method: 'POST',
@@ -83,48 +79,45 @@
         const response = await fetch('/manager/menu_item/post', options);
         let value = await response.json();
         add_item_ingredients(value.id);
-        mi_name = '';
-        mi_price = 0;
-        mi_calories = 0;
+        add_name = '';
+        add_price = 0;
+        add_calories = 0;
     }
 
-    function handleCheckboxChange(event, item) {
+    function handleCheckboxChange(event, ingredient) {
         if (event.target.checked) {
-            mi_ingredients = [...mi_ingredients, item];
+            add_ingredients = [...add_ingredients, ingredient];
         } else {
-            mi_ingredients = mi_ingredients.filter(ingredient_group => ingredient_group !== item);
+            add_ingredients = add_ingredients.filter(ingredient_group => ingredient_group !== ingredient);
         }
     }
 
 
-    let open_edit = false;
-    let e_mi_name = '';
-    let e_mi_price = '';
-    let e_mi_calories = 0;
+    let edit_open = false;
+    let edit_id = 0;
+    let edit_name = '';
+    let edit_price = '';
+    let edit_calories = 0;
 
-    function toggle_edit() {
-        open_edit = !open_edit;
+    function edit_toggle(menu_item) {
+        edit_open = !edit_open;
+        edit_id = menu_item.menu_item_id;
+        edit_name = menu_item.name;
+        edit_price = menu_item.price;
+        edit_calories = menu_item.calories;
     }
 
-    function toggle(id) {
-        open_edit = !open_edit;
-        console.log(id);
-        // e_mi_name = menu_item.name;
-        // e_mi_price = menu_item.price;
-        // e_mi_calories = menu_item.calories;
+    function edit_cancel() {
+        edit_open = !edit_open;
     }
 
-    function cancel_edit() {
-        toggle_edit();
-    }
-
-
-    async function update_row(row) {
-        console.log(row);
+    async function edit_menu_item() {
+        edit_open = !edit_open;
         const data = {
-            id: row.menu_item_id,
-            name: row.name,
-            price : row.price,
+            id: edit_id,
+            name: edit_name,
+            price : edit_price,
+            calories : edit_calories,
         };
         const options = {
             method: 'PATCH',
@@ -134,13 +127,13 @@
             body: JSON.stringify(data),
         };
         const response = await fetch('/manager/menu_item/patch', options);
-        row = await response.json();
-        editable_row = null;
+        await response.json();
     }
 
     export let data;
     let menu_items = data.menu_items;
     menu_items.sort((a, b) => a.menu_item_id - b.menu_item_id);
+    
 </script>
 
 <style>
@@ -164,62 +157,64 @@
 </div>
 
 <div>
-    <Button color="primary" style="margin-left:25px" on:click={toggle_menu_item}>Add New Menu Item</Button>
-    <Modal isOpen={open_add} backdrop={false} {toggle_menu_item} >
-        <ModalHeader style="background-color:gray; color:white" {toggle_menu_item} >Add New Menu Item</ModalHeader>
+    <Button color="primary" style="margin-left:25px" on:click={add_toggle}>Add New Menu Item</Button>
+    <Modal isOpen={add_open} backdrop={false} {add_toggle} >
+        <ModalHeader style="background-color:gray; color:white" {add_toggle} >Add New Menu Item</ModalHeader>
         <ModalBody style="background-color:lightgray">
             <FormGroup>
-                <Label for="name">Name</Label>
+                <Label for="aname">Name</Label>
                 <Input
                     type="text"
                     name="name"
-                    id="name"
+                    id="aname"
                     placeholder="name"
-                    bind:value={mi_name}
+                    bind:value={add_name}
+                    autocomplete="off"
                 />
             </FormGroup>
 
             <FormGroup>
-                <Label for="price">Price</Label>
+                <Label for="aprice">Price</Label>
                 <Input
                     type="text"
                     name="price"
-                    id="price"
+                    id="aprice"
                     placeholder="price"
-                    bind:value={mi_price}
+                    bind:value={add_price}
+                    autocomplete="off"
                 />
             </FormGroup>
 
             <FormGroup>
-                <Label for="calories">Calories</Label>
+                <Label for="acalories">Calories</Label>
                 <Input
                     type="number"
                     name="calories"
-                    id="calories"
+                    id="acalories"
                     placeholder="calories"
-                    bind:value={mi_calories}
+                    bind:value={add_calories}
+                    autocomplete="off"
                 />
             </FormGroup>
 
             <FormGroup>
-                <Label for="ingredient_group">Ingredients</Label>
+                <Label>Ingredients</Label>
                 {#each ingredients as i}
                     <Input
                         id={i.ingredient_id}
                         type="checkbox"
-                        bind:group={mi_ingredients}
+                        bind:group={add_ingredients}
                         value="{i.name}"
                         on:change={(event) => handleCheckboxChange(event, i)}
                         label={i.name}
                     />
                 {/each}
             </FormGroup>
-            
 
         </ModalBody>
         <ModalFooter style="background-color:grey">
             <Button color="primary" on:click={add_menu_item}>Add New Item</Button>
-            <Button color="light" on:click={cancel_menu_item}>Cancel</Button>
+            <Button color="light" on:click={add_cancel}>Cancel</Button>
         </ModalFooter>
     </Modal>
 </div>
@@ -246,47 +241,50 @@
             <td>{menu_item.ingredients}</td>
             <td>
                 <div>
-                    <Button color="primary" style="margin-left:25px" on:click={toggle}>Edit</Button>
-                    <Modal isOpen={open_edit} backdrop={false} {toggle_edit} >
-                        <ModalHeader style="background-color:gray; color:white" {toggle_edit} >Edit Menu Item {menu_item.name}</ModalHeader>
+                    <Button color="primary" style="margin-left:25px" on:click={() => edit_toggle(menu_item)}>Edit</Button>
+                    <Modal isOpen={edit_open} backdrop={false}>
+                        <ModalHeader style="background-color:gray; color:white">Edit Menu Item</ModalHeader>
                         <ModalBody style="background-color:lightgray">
                             <FormGroup>
-                                <Label for="name">Name</Label>
+                                <Label for="ename_${menu_item.menu_item_id}">Name</Label>
                                 <Input
                                     type="text"
                                     name="name"
-                                    id="name"
+                                    id="ename_${menu_item.menu_item_id}"
                                     placeholder="name"
-                                    bind:value={e_mi_name}
+                                    bind:value={edit_name}
+                                    autocomplete="off"
                                 />
                             </FormGroup>
                 
                             <FormGroup>
-                                <Label for="price">Price</Label>
+                                <Label for="eprice_${menu_item.menu_item_id}">Price</Label>
                                 <Input
                                     type="text"
                                     name="price"
-                                    id="price"
+                                    id="eprice_${menu_item.menu_item_id}"
                                     placeholder="price"
-                                    bind:value={e_mi_price}
+                                    bind:value={edit_price}
+                                    autocomplete="off"
                                 />
                             </FormGroup>
                 
                             <FormGroup>
-                                <Label for="calories">Calories</Label>
+                                <Label for="ecalories_${menu_item.menu_item_id}">Calories</Label>
                                 <Input
                                     type="number"
                                     name="calories"
-                                    id="calories"
+                                    id="ecalories_${menu_item.menu_item_id}"
                                     placeholder="calories"
-                                    bind:value={e_mi_calories}
+                                    bind:value={edit_calories}
+                                    autocomplete="off"
                                 />
                             </FormGroup>
                 
                         </ModalBody>
                         <ModalFooter style="background-color:grey">
-                            <Button color="primary" on:click={update_row}>Update</Button>
-                            <Button color="light" on:click={cancel_edit}>Cancel</Button>
+                            <Button color="primary" on:click={edit_menu_item}>Update</Button>
+                            <Button color="light" on:click={edit_cancel}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
                 </div>
