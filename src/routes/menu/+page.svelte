@@ -5,11 +5,10 @@
 	export let data;
 </script>
 
-<Nav />
-
 <head>
 	<title>Menu Board</title>
 </head>
+
 <Nav />
 
 <div class="header" style="text-align: center; font-size: 30px">Menu Items</div>

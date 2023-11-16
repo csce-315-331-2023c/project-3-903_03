@@ -1,5 +1,5 @@
 <script>
-    import Nav from "../../Nav.svelte";
+    import Nav from "$lib/Nav.svelte";
     import { onMount } from 'svelte';
     import {
         Table, 

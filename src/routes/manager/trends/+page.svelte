@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { get_slot_changes, validate_component } from "svelte/internal";
-    import Nav from "../../Nav.svelte";
+    import Nav from "$lib/Nav.svelte";
 
     let name = 'Philip Ritchey'
     
