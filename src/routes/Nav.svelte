@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { signIn } from '@auth/sveltekit/client';
     import {
       Collapse,
       Navbar,
@@ -35,7 +36,15 @@
           <NavLink href="./about">About</NavLink>
         </NavItem>
         <NavItem>
-            <NavLink href="./login">Login</NavLink>
+            <NavLink on:click={() => signIn(
+              'auth0', {
+                redirect: false,
+                callbackUrl: 'http://localhost:4000/about'
+              },
+              {
+                scope: 'api openid profile email'
+              }
+            )}>Login</NavLink>
           </NavItem>
       </Nav>
     </Collapse>
