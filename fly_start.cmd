@@ -1,0 +1,1 @@
+psql -h project3-db.fly.dev -U postgres -d postgres

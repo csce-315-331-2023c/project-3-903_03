@@ -1,0 +1,4 @@
+\i create_tables.sql
+\copy _customer_order from 'customer_order.csv' CSV HEADER
+\copy _ordered_item from 'ordered_item.csv' CSV HEADER
+\copy _item_ingredient from 'item_ingredient.csv' CSV HEADER

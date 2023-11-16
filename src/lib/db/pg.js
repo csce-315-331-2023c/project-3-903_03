@@ -3,10 +3,10 @@ const { Pool } = pkg;
 
 // Create pool
 const pool = new Pool({
-    user: 'csce315_903_03user',
-    host: 'csce-315-db.engr.tamu.edu',
-    database: 'csce315_903_03db',
-    password: 'lunar little lively',
+    database: 'postgres',
+    user: 'postgres',
+    host: 'project3-db.fly.dev',
+    password: 'IQ4zWl70KfNQFpF',
     port: 5432,
 });
 

@@ -1,11 +1,8 @@
 <script>
 	import Nav from '$lib/Nav.svelte';
-	import Weather from '$lib/Weather.svelte';
 </script>
 
 <Nav />
-
-<Weather />
 
 <div class="container">
 	<h1>Welcome to Tiff's Treats</h1>
