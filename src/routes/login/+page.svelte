@@ -1,15 +1,9 @@
-<script src="+page.js">
-    import { browser } from '$app/environment';
+<script lang="ts">
     import Nav from "../Nav.svelte";
+    import { signIn } from '@auth/sveltekit/client';
 
     let username = "";
     let password = "";
-
-    const handleUpdate = () => {
-
-        _updateClient();
-    };
-
 </script>
 
 <Nav />
@@ -26,6 +20,17 @@
         <input type="password" id="pword" name="password" bind:value={password}><br><br>
       
         <input type="submit" value="Login" style="margin-bottom: 20px; background:white"> 
-        <input type="submit" value="Create New Account" style="background:#63C5DA" onclick="createUser()">
+        <input type="submit" value="Create New Account" style="background:#63C5DA">
       </form>
+
+      <button on:click={() => signIn(
+        'auth0', {
+          redirect: false,
+          callbackUrl: 'http://localhost:4000/about'
+        },
+        {
+          scope: 'api openid profile email'
+        }
+      )}>Sign In with Auth0</button>
+      
 </div>
