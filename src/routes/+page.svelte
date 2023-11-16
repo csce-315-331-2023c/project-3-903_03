@@ -35,10 +35,6 @@
 		text-align: center;
 		padding: 20px;
 	}
-	.navbar {
-		text-align: center;
-		padding: 20px;
-	}
 	.contact {
 		text-align: center;
 		padding: 20px;
