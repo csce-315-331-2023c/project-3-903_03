@@ -1,5 +1,4 @@
 <script>
-    import Nav from "../../Nav.svelte";
     import { onMount } from 'svelte';
 
     onMount(() => {
@@ -153,7 +152,6 @@
 </style>
 
 <title>Manager: Ingredients</title>
-<Nav />
 
 <div>
     <header >Manager: { manager_name }</header>

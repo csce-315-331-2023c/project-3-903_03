@@ -1,5 +1,4 @@
 <script>
-    import Nav from "../Nav.svelte";
     import { Button } from 'sveltestrap';
 
     let name = 'Philip Ritchey'
@@ -21,7 +20,6 @@
 </style>
 
 <title>Manager</title>
-<Nav />
 
 <div>
     <header >Welcome Manager, { name }</header>

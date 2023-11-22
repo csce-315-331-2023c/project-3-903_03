@@ -1,5 +1,4 @@
 <script>
-    import Nav from "../../Nav.svelte";
     import { onMount } from 'svelte';
     import {
         Table, 
@@ -146,7 +145,6 @@
 </style>
 
 <title>Manager: Menu Items</title>
-<Nav />
 
 <div>
     <header >Manager: { name }</header>
