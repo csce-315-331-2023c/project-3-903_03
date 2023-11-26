@@ -1,9 +1,3 @@
-<script>
-  import Nav from "./Nav.svelte";
-</script>
-
-<Nav />
-
 <style>
   /* Add your CSS styles here */
   .container {

@@ -1,5 +1,4 @@
 <script>
-    import Nav from "../../Nav.svelte";
     import { onMount } from 'svelte';
 
     onMount(() => {
@@ -96,13 +95,12 @@
         location.reload();
     }
 
-    const current_date = new Date();
-    const year = current_date.getFullYear();
-    const month = (current_date.getMonth() + 1).toString().padStart(2, '0');
-    const day = current_date.getDate().toString().padStart(2, '0');
-    const formatted_date = `'${year}-${month}-${day}'`;
-
     async function post_restock() {
+        const current_date = new Date();
+        const year = current_date.getFullYear();
+        const month = (current_date.getMonth() + 1).toString().padStart(2, '0');
+        const day = current_date.getDate().toString().padStart(2, '0');
+        const formatted_date = `'${year}-${month}-${day}'`;
         const data = {
             id: manager_id,
             restock_date: String(formatted_date),
@@ -153,7 +151,6 @@
 </style>
 
 <title>Manager: Ingredients</title>
-<Nav />
 
 <div>
     <header >Manager: { manager_name }</header>

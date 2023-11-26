@@ -1,5 +1,5 @@
 <script>
-    import Nav from "../Nav.svelte";
+
     import { onMount } from 'svelte';
 
     onMount(() => {
@@ -14,7 +14,7 @@
 
     let menu_items = [];
     async function get_menu_items() {
-        let input = `/manager/cashier/get_menu_items`;
+        let input = `/cashier/get_menu_items`;
         const response = await fetch(input);
         menu_items = await response.json();
     }
@@ -29,9 +29,7 @@
 
 </style>
 
-<title>Manager</title>
-<Nav />
-
+<title>Cashier</title>
 <div>
     <header >Welcome Cashier, { name }</header>
 </div>

@@ -1,28 +1,39 @@
-<script lang="ts">
-  import { Accordion, AccordionItem } from 'sveltestrap';
-  import Nav from "../Nav.svelte";
+<script>
+    import { Container, Row, Col, Image } from 'sveltestrap';
+    import { Card, CardBody, } from 'sveltestrap';
+    import { get_image } from "$lib/item_images";
 
-  export let data;
+    export let data;
 
+    let menuitems = data.menu_items;
+    menuitems.sort((mi1, mi2) => mi1.menu_item_id - mi2.menu_item_id);
 </script>
   
 <head>
   <title>Menu Board</title>    
 </head>
-<Nav />
 
-<div class ="header" style="text-align: center; font-size: 30px">Menu Items</div>
+<div class ="header" style="text-align: center; font-size: 50px">Menu Items</div>
 
-
-<Accordion stayOpen>
-  {#each data.menu_items as menu_item}
-    <AccordionItem header={menu_item.name}>
-      <img src = "favicon.png" alt = {menu_item.name}>
-      <p>Price: {menu_item.price}</p>
-      <p>Calories: {menu_item.calories} cals</p>
-      <p>Ingredients: {menu_item.ingredients}</p>
-    </AccordionItem> 
-  {/each}    
-
-</Accordion>
-
+{#each menuitems as menu_item}
+  <Card class="mb-2">
+    <!-- <CardHeader>
+       <p style="text-align: center; font-size: 30px">{menu_item.name} </p>
+    </CardHeader> -->
+    <CardBody>
+      <Container>
+        <Row>
+          <Col xs="auto">
+            <Image src = {get_image(menu_item.menu_item_id)} alt = {menu_item.name} width="196" height="196"/>
+          </Col>
+          <Col xs="6">
+            <p style="font-size: 30px">{menu_item.name} </p>
+            <p style="font-size: 20px">Price: {menu_item.price} </p>
+            <p style="font-size: 20px">Calories: {menu_item.calories} cals</p>
+            <p>Ingredients: {menu_item.ingredients}</p>
+          </Col>
+        </Row>
+      </Container>
+    </CardBody>
+  </Card>
+{/each}    

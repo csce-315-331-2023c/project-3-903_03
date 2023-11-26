@@ -1,5 +1,4 @@
 <script>
-    import Nav from "../Nav.svelte";
     import {navigate} from "svelte-routing";
     
     import { Form, InputGroup, InputGroupText, Input, Button, ButtonGroup } from 'sveltestrap';
@@ -28,8 +27,6 @@
     }    
 
 </script>
-
-<Nav />
 
 
 <img src="https://consultancy.innotecuk.com/wp-content/uploads/2017/10/cookies-banner.jpg" style="width:100%" height="175">

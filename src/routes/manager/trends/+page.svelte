@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { get_slot_changes, validate_component } from "svelte/internal";
-    import Nav from "../../Nav.svelte";
 
     let name = 'Philip Ritchey'
     
@@ -132,7 +131,6 @@
 </style>
 
 <title>Manager: Trends</title>
-<Nav />
 
 <div>
     <header >Manager: { name }</header>

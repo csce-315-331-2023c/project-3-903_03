@@ -26,17 +26,19 @@
     <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
       <Nav class="ms-auto" navbar>
         <NavItem>
-            <NavLink href="/">Home</NavLink>
-          </NavItem>
-        <NavItem>
-          <NavLink href="./menu">Menu</NavLink>
+          <NavLink href="/">Home</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="./about">About</NavLink>
+          <NavLink href="/menu">Menu</NavLink>
         </NavItem>
         <NavItem>
-            <NavLink href="./login">Login</NavLink>
-          </NavItem>
+          <NavLink href="/about">About</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/login">Login</NavLink>
+        </NavItem>
       </Nav>
     </Collapse>
   </Navbar>
+
+  <slot/>
