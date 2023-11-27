@@ -28,7 +28,7 @@ CREATE TABLE _menu_item (
     name text,
     price money,
 	calories int,
-	season int
+	season text
 );
 
 CREATE TABLE _ingredient (
@@ -99,27 +99,27 @@ VALUES
 INSERT INTO 
 	_menu_item(menu_item_id, name, price, calories, season) 
 VALUES
-	(1, 'Chocolate Chip Cookie', 1.75, 100, 0),
-	(2, 'Snickerdoodle Cookie', 1.75, 100, 0),
-	(3, 'Sugar Cookie with M&Ms Cookie', 1.75, 100, 0),
-	(4, 'Double Chocolate Chip Cookie', 1.75, 100, 0),
-	(5, 'Pecan Chocolate Chip Cookie', 1.75, 100, 0),
-	(6, 'Peanut Butter Cookie', 1.75, 100, 0),
-	(7, 'Sugar Cookie', 1.75, 100, 0),
-	(8, 'Oatmeal Raisin Cookie', 1.75, 100, 0),
-	(9, 'Peanut Butter Chocolate Chip Cookie', 1.75, 100, 0),
-	(10, 'Connor Man Brookie', 3.75, 100, 0),
-	(11, 'Brownie', 4.50, 100, 0),
-	(12, 'Peanut Butter Chocolate Bar', 4.50, 100, 0),
-	(13, 'Salted Caramel Blondie', 4.50, 100, 0),
-    (14, 'Oatmeal Chocolate Chip Cookie', 1.75, 100, 0),
-    (15, 'Vanilla Ice Cream Pint', 5.50, 100, 0),
-    (16, 'Mint Chocolate Chip Pint', 5.50, 100, 0),
-    (17, 'Chocolate Ice Cream Pint', 5.50, 100, 0),
-    (18, 'Cookies n Cream Pint', 5.50, 100, 0),
-    (19, '1% Milk', 2.00, 100, 0),
-    (20, 'Chocolate Milk', 2.00, 100, 0),
-	(21, 'Gingerbread Cookie', 3.00, 100, 1);
+	(1, 'Chocolate Chip Cookie', 1.75, 100, 'None'),
+	(2, 'Snickerdoodle Cookie', 1.75, 100, 'None'),
+	(3, 'Sugar Cookie with M&Ms Cookie', 1.75, 100, 'None'),
+	(4, 'Double Chocolate Chip Cookie', 1.75, 100, 'None'),
+	(5, 'Pecan Chocolate Chip Cookie', 1.75, 100, 'None'),
+	(6, 'Peanut Butter Cookie', 1.75, 100, 'None'),
+	(7, 'Sugar Cookie', 1.75, 100, 'None'),
+	(8, 'Oatmeal Raisin Cookie', 1.75, 100, 'None'),
+	(9, 'Peanut Butter Chocolate Chip Cookie', 1.75, 100, 'None'),
+	(10, 'Connor Man Brookie', 3.75, 100, 'None'),
+	(11, 'Brownie', 4.50, 100, 'None'),
+	(12, 'Peanut Butter Chocolate Bar', 4.50, 100, 'None'),
+	(13, 'Salted Caramel Blondie', 4.50, 100, 'None'),
+    (14, 'Oatmeal Chocolate Chip Cookie', 1.75, 100, 'None'),
+    (15, 'Vanilla Ice Cream Pint', 5.50, 100, 'None'),
+    (16, 'Mint Chocolate Chip Pint', 5.50, 100, 'None'),
+    (17, 'Chocolate Ice Cream Pint', 5.50, 100, 'None'),
+    (18, 'Cookies n Cream Pint', 5.50, 100, 'None'),
+    (19, '1% Milk', 2.00, 100, 'None'),
+    (20, 'Chocolate Milk', 2.00, 100, 'None'),
+	(21, 'Gingerbread Cookie', 3.00, 100, 'Christmas');
     
 
 INSERT INTO 

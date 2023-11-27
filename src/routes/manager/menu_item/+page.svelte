@@ -33,6 +33,7 @@
     let add_name = '';
     let add_price = '';
     let add_calories = 0;
+    let add_season = 'None';
     let add_ingredients = [];
     let add_open = false;
 
@@ -67,6 +68,7 @@
             name: add_name,
             price: add_price,
             calories: add_calories,
+            season: add_season,
         };
         const options = {
             method: 'POST',
@@ -81,6 +83,7 @@
         add_name = '';
         add_price = 0;
         add_calories = 0;
+        add_season = '';
     }
 
     function handleCheckboxChange(event, ingredient) {
@@ -97,6 +100,7 @@
     let edit_name = '';
     let edit_price = '';
     let edit_calories = 0;
+    let edit_season = '';
 
     function edit_toggle(menu_item) {
         edit_open = !edit_open;
@@ -104,6 +108,7 @@
         edit_name = menu_item.name;
         edit_price = menu_item.price;
         edit_calories = menu_item.calories;
+        edit_season = menu_item.season;
     }
 
     function edit_cancel() {
@@ -115,8 +120,9 @@
         const data = {
             id: edit_id,
             name: edit_name,
-            price : edit_price,
-            calories : edit_calories,
+            price: edit_price,
+            calories: edit_calories,
+            season: edit_season,
         };
         const options = {
             method: 'PATCH',
@@ -196,6 +202,18 @@
             </FormGroup>
 
             <FormGroup>
+                <Label for="aseason">Season</Label>
+                <Input
+                    type="text"
+                    name="season"
+                    id="aseason"
+                    placeholder="none"
+                    bind:value={add_season}
+                    autocomplete="off"
+                />
+            </FormGroup>
+
+            <FormGroup>
                 <Label>Ingredients</Label>
                 {#each ingredients as i}
                     <Input
@@ -225,6 +243,7 @@
             <th>Name</th>
             <th>Price</th>
             <th>Calories</th>
+            <th>Season</th>
             <th>Ingredients</th>
             <th>Edit Button</th>
         </tr>
@@ -236,6 +255,7 @@
             <td>{menu_item.name}</td>
             <td>{menu_item.price}</td>    
             <td>{menu_item.calories}</td>
+            <td>{menu_item.season}</td>
             <td>{menu_item.ingredients}</td>
             <td>
                 <div>
@@ -275,6 +295,18 @@
                                     id="ecalories_${menu_item.menu_item_id}"
                                     placeholder="calories"
                                     bind:value={edit_calories}
+                                    autocomplete="off"
+                                />
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="eseason_${menu_item.menu_item_id}">Season</Label>
+                                <Input
+                                    type="text"
+                                    name="season"
+                                    id="eseason_${menu_item.menu_item_id}"
+                                    placeholder="season"
+                                    bind:value={edit_season}
                                     autocomplete="off"
                                 />
                             </FormGroup>
