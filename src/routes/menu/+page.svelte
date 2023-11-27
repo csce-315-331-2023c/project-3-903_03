@@ -10,7 +10,7 @@
 </script>
   
 <head>
-  <title>Menu Board</title>    
+	<title>Menu Board</title>
 </head>
 
 <div class ="header" style="text-align: center; font-size: 50px">Menu Items</div>
