@@ -17,7 +17,7 @@ const images = [
     {id:16, name:"Mint Chocolate Chip Pint.webp"},  
     {id:17, name:"Chocolate Ice Cream Pint.jpeg"},  
     {id:18, name:"Cookies n Cream Pint.jpeg"},  
-    {id:19, name:"1p Milk.png"},  
+    {id:19, name:"Milk 1p.png"},  
     {id:20, name:"Chocolate Milk.png"},  
     {id:21, name:"Gingerbread Cookie.jpeg"},  
   ];
