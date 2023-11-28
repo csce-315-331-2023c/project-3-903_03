@@ -14,6 +14,7 @@
   let orderitems = []
   let menuitems = [];
   let total = "$0.00";
+  let status_id = 0;
 
   async function get_menuitems() {
         let input = `/customer/place_order/get_menu_items`;
@@ -139,6 +140,7 @@
           cost : total, 
           order_date : fmt_date, 
           order_time : fmt_time,
+          status_id: status_id,  
       };
       const options = {
           method: 'POST',

@@ -3,11 +3,11 @@ import { json } from '@sveltejs/kit';
 
 export async function POST( {request} ) {
     let connection = await pool.connect();
-    const { id, cost, order_date, order_time } = await request.json();
+    const { id, cost, order_date, order_time, status_id } = await request.json();
     let sql = 
         `WITH max_id AS (SELECT COALESCE(MAX(customer_order_id), 0) + 1 AS new_id FROM _customer_order) \
-         INSERT INTO _customer_order(customer_order_id, id, cost, order_date, order_time) \
-         SELECT new_id, '${id}', '${cost}', '${order_date}', '${order_time}' FROM max_id \
+         INSERT INTO _customer_order(customer_order_id, id, cost, order_date, order_time, status_id) \
+         SELECT new_id, '${id}', '${cost}', '${order_date}', '${order_time}', ${status_id} FROM max_id \
          RETURNING customer_order_id;`;
     try {
         const result = await connection.query(sql);
