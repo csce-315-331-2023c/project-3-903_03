@@ -1,4 +1,5 @@
-<script lang="ts">
+<script>
+    import { auth } from '$lib/auth.js';
     import {
       Collapse,
       Navbar,
@@ -13,10 +14,15 @@
       DropdownItem
     } from 'sveltestrap';
 
-    import { weatherData, getCurrentConditions } from '../lib/weather';
+    import { weatherData, getCurrentConditions } from '$lib/weather.ts';
   
     let isOpen = false;
   
+    $: category = ($auth.user == null ? '' : $auth.user.category);
+    $: is_manager_visible = (category == 'manager' ? true : false);
+    $: is_customer_visible = (category == 'customer' ? true : false);
+    $: is_cashier_visible = (category == 'cashier' ? true : false);
+
     function handleUpdate(event) {
       isOpen = event.detail.isOpen;
     }
@@ -25,13 +31,11 @@
     const minutely15 = weatherData.minutely15;
     const currentTemp = Math.round(current.temperature2m);
 
-
-
     const currentConditions = getCurrentConditions(current.weatherCode);
 
   </script>
   
-  <Navbar color="light" light expand="md">
+   <Navbar color="light" light expand="md">
     <NavbarBrand href="/">Tiff's Treats</NavbarBrand>
     <NavbarToggler on:click={() => (isOpen = !isOpen)} />
     <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
@@ -42,6 +46,40 @@
         <NavItem>
           <NavLink href="/menu">Menu</NavLink>
         </NavItem>
+        {#if is_manager_visible}
+          <Dropdown  nav inNavbar>
+            <DropdownToggle nav caret>Manager</DropdownToggle>
+            <DropdownMenu end>
+              <DropdownItem href="/manager">Manager</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem href="/manager/menu_item">Menu Items</DropdownItem>
+              <DropdownItem href="/manager/ingredients">Ingredients</DropdownItem>
+              <DropdownItem href="/manager/trends">Trends</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        {/if}
+        {#if is_customer_visible}
+          <Dropdown nav inNavbar>
+            <DropdownToggle nav caret>Customer</DropdownToggle>
+            <DropdownMenu end>
+              <DropdownItem href="/customer">Customer</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem href="/customer/place_order">Place Order</DropdownItem>
+              <DropdownItem href="/customer/order_history">Order History</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        {/if}
+        {#if is_cashier_visible}
+          <Dropdown nav inNavbar>
+            <DropdownToggle nav caret>Cashier</DropdownToggle>
+            <DropdownMenu end>
+              <DropdownItem href="/cashier">Cashier</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem href="/cashier/place_order">Place Order</DropdownItem>
+              <DropdownItem href="/cashier/order_history">Order History</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        {/if}
         <NavItem>
           <NavLink href="/login">Login</NavLink>
         </NavItem>
