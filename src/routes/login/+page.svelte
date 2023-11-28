@@ -41,16 +41,15 @@
     <p style="font-size: 40px; text-align: center; margin-bottom: 0 auto" >Welcome to Tiff's Treats! <br></p>
     <Form >
         <InputGroup  style="width: 300px;padding: 10px;">
-            <InputGroupText>Username:</InputGroupText>
+            <InputGroupText style="width: 35%">Username:</InputGroupText>
             <Input id="username" bind:value={username} autocomplete="off"/>
         </InputGroup>
         <InputGroup style="width: 300px;padding: 10px;">
-            <InputGroupText>Password:</InputGroupText>
+            <InputGroupText style="width: 35%">Password:</InputGroupText>
             <Input id="password" type="password" bind:value={password} autocomplete="off"/>
         </InputGroup>
         <ButtonGroup style="width: 300px;padding: 10px;">
             <Button active on:click={login}>Login</Button>
-            <Button>Create New Account</Button>
         </ButtonGroup>
     </Form>
 </div>
