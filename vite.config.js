@@ -5,6 +5,11 @@ const config = {
 	plugins: [sveltekit()],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
+	},
+	esbuild: {
+		supported: {
+			'top-level-await': true //browsers can handle top-level-await features
+		}
 	}
 };
 
