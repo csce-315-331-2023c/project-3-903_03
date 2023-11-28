@@ -1,4 +1,4 @@
-drop table  _user_category, _user, _customer_order, _menu_item, _ingredient, _restock_order, _ordered_item, _item_ingredient, _restock_ingredient;
+drop table  _status, _user_category, _user, _customer_order, _menu_item, _ingredient, _restock_order, _ordered_item, _item_ingredient, _restock_ingredient;
 
 CREATE TABLE _user_category (
 	category_id int PRIMARY KEY,
@@ -14,13 +14,20 @@ CREATE TABLE _user (
     CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES _user_category(category_id)
 );
 
+CREATE TABLE _status (
+	status_id int PRIMARY KEY,
+	status text
+);
+
 CREATE TABLE _customer_order (
     customer_order_id int PRIMARY KEY,
     id int,
     cost money,
     order_date date,
 	order_time time,
-    CONSTRAINT fk_id FOREIGN KEY (id) REFERENCES _user(id)
+    status_id int,
+    CONSTRAINT fk_id FOREIGN KEY (id) REFERENCES _user(id),
+    CONSTRAINT fk_satus_id FOREIGN KEY (status_id) REFERENCES _status(status_id)
 );
 
 CREATE TABLE _menu_item (
@@ -85,6 +92,14 @@ VALUES
 
 
 INSERT INTO 
+	_status(status_id, status)
+VALUES
+	(0, 'Pending'),
+	(1, 'Completed'),
+	(2, 'Canceled');
+
+
+INSERT INTO 
 	_user(id, name, username, password, category_id)
 VALUES
 	(1, 'Philip Ritchey', 'pritchey', 'dollar1', 1),
@@ -95,7 +110,6 @@ VALUES
 	(6, 'John Smith', 'jsmith', 'customer', 3);
 	
 	
-
 INSERT INTO 
 	_menu_item(menu_item_id, name, price, calories, season) 
 VALUES
