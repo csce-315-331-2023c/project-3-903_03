@@ -1,14 +1,13 @@
 <script>
     import { Button } from 'sveltestrap';
 
-    let name = 'Sophia Dronova'
 </script>
 
 
 <title>Cashier</title>
 
 <header>
-    Welcome Cashier, { name }
+    Welcome Cashier
 </header>
 
 <body class="center">

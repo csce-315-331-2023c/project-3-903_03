@@ -111,7 +111,7 @@ VALUES
 	(4, 'Megha Subhash', 'ssubhash', 'laboratory34', 2),
 	(5, 'Aaron Weng', 'aweng', 'jump560', 2),
 	(6, 'John Smith', 'jsmith', 'customer', 3),
-    (7, 'Guest', 'guest', '', 4);
+    (7, '', 'guest', '', 4);
 	
 	
 INSERT INTO 

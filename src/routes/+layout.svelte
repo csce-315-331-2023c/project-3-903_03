@@ -17,11 +17,15 @@
     import { weatherData, getCurrentConditions } from '$lib/weather.ts';
   
     let isOpen = false;
-  
+    $: name = ($auth.user == null ? '' : $auth.user.name);
     $: category = ($auth.user == null ? '' : $auth.user.category);
+    $: cat = ($auth.user == null ? '' : category[0].toUpperCase() + category.slice(1));
     $: is_manager_visible = (category == 'manager' ? true : false);
     $: is_customer_visible = (category == 'customer' ? true : false);
     $: is_cashier_visible = (category == 'cashier' ? true : false);
+    $: is_admin_visible = (category == 'admin' ? true : false);
+    $: entry = (category === '' ? 'Login' : 'Logout');
+
 
     function handleUpdate(event) {
       isOpen = event.detail.isOpen;
@@ -38,6 +42,11 @@
    <Navbar color="light" light expand="md">
     <NavbarBrand href="/">Tiff's Treats</NavbarBrand>
     <NavbarToggler on:click={() => (isOpen = !isOpen)} />
+    {#if cat !== ''}
+      <NavItem>
+        {cat}  {name}
+      </NavItem>
+    {/if}      
     <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
       <Nav class="ms-auto" navbar>
         <NavItem>
@@ -80,8 +89,13 @@
             </DropdownMenu>
           </Dropdown>
         {/if}
+        {#if is_admin_visible}
+          <NavItem>
+            <NavLink href="/admin">Admin</NavLink>
+          </NavItem>        
+        {/if}
         <NavItem>
-          <NavLink href="/login">Login</NavLink>
+          <NavLink href="/login">{entry}</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="/about">About</NavLink>

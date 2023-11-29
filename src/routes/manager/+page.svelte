@@ -1,7 +1,5 @@
 <script>
     import { Button } from 'sveltestrap';
-
-    let name = 'Philip Ritchey'
 </script>
 
 <style>
@@ -22,7 +20,7 @@
 <title>Manager</title>
 
 <div>
-    <header >Welcome Manager, { name }</header>
+    <header >Welcome Manager</header>
 </div>
 
 <div class="center">

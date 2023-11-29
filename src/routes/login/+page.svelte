@@ -31,7 +31,17 @@
         } else {
             console.log("Wrong credential");
         }
-    }    
+    }   
+    
+    $: name = ($auth.user == null ? '' : $auth.user.name);
+    if (name !== '') {
+        auth.set({
+            isAuthenticated: false,
+            user: null,
+            token: null,
+        });      
+    }
+    
 
 </script>
 
