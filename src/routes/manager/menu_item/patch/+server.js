@@ -6,9 +6,8 @@ export async function PATCH( {request} ) {
     const {id, name, price, calories, season} = await request.json();
     let sql = 
         `UPDATE _menu_item \
-        SET name = '${name}', price = '${price}', calories = ${calories}, season = ${season}\
+        SET name = '${name}', price = '$${price}', calories = ${calories}, season = '${season}'\
         WHERE menu_item_id = ${id};`;
-    console.log(sql);
     try {
         const result = await connection.query(sql);
         

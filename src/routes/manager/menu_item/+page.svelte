@@ -15,10 +15,18 @@
     } from 'sveltestrap';
 
     onMount(() => {
+        get_menu_items();
         get_ingredients();
         return () => {
         };
     });
+
+    async function get_menu_items() {
+        let input = `/manager/menu_item/get_menu_items`;
+        const response = await fetch(input);
+        menu_items = await response.json();
+        menu_items.sort((a, b) => a.menu_item_id - b.menu_item_id);
+    }
 
     async function get_ingredients() {
         let input = `/manager/menu_item/get_ingredients`;
@@ -29,6 +37,7 @@
     let name = 'Philip Ritchey'
 
     let ingredients = [];
+    let menu_items = [];
 
     let add_name = '';
     let add_price = '';
@@ -84,6 +93,7 @@
         add_price = 0;
         add_calories = 0;
         add_season = '';
+        get_menu_items();
     }
 
     function handleCheckboxChange(event, ingredient) {
@@ -133,12 +143,9 @@
         };
         const response = await fetch('/manager/menu_item/patch', options);
         await response.json();
+        get_menu_items();
     }
-
-    export let data;
-    let menu_items = data.menu_items;
-    menu_items.sort((a, b) => a.menu_item_id - b.menu_item_id);
-    
+   
 </script>
 
 <style>

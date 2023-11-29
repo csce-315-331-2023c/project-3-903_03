@@ -209,11 +209,11 @@
               <CardTitle style="font-size: 35px">
                 Order #{customer_order.customer_order_id} {statuses[customer_order.status_id]}
 
-                <Button style="float:right; margin:5px" on:click={() => delete_order(customer_order.customer_order_id)}>Delete</Button>
+                <Button style="float:right; margin:5px;" color="danger" on:click={() => delete_order(customer_order.customer_order_id)}>Delete</Button>
                 {#if customer_order.status_id == 0}
-                  <Button style="float:right; margin:5px" on:click={() => patch_order(customer_order.customer_order_id, 2)}>Cancel</Button>
-                  <Button style="float:right; margin:5px" on:click={() => patch_order(customer_order.customer_order_id, 1)}>Complete</Button>              
-                  <Button style="float:right; margin:5px" on:click={() => edit_order(customer_order.customer_order_id)}>Edit</Button>                
+                  <Button style="float:right; margin:5px" color="warning" on:click={() => patch_order(customer_order.customer_order_id, 2)}>Cancel</Button>
+                  <Button style="float:right; margin:5px" color="success" on:click={() => patch_order(customer_order.customer_order_id, 1)}>Complete</Button>              
+                  <Button style="float:right; margin:5px" color="primary" on:click={() => edit_order(customer_order.customer_order_id)}>Edit</Button>                
                 {/if} 
                 
               </CardTitle>

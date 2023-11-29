@@ -2,6 +2,7 @@
     import { onMount } from 'svelte';
 
     onMount(() => {
+        get_ingredients();
         return () => {
         };
     });
@@ -36,6 +37,17 @@
         toggle_ingredient();
     }
 
+    async function get_ingredients() {
+        let input = `/manager/ingredients/get_ingredients`;
+        const response = await fetch(input);
+        ingredients = await response.json();
+        if (ingredients) {
+            ingredients.sort((a, b) => a.ingredient_id - b.ingredient_id);
+            calculate_total_restock();
+        }
+    }
+
+
     async function add_ingredient() {
         toggle_ingredient();
         const data = {
@@ -55,12 +67,13 @@
         await response.json();
         i_name = '';
         i_cost = 0;
-        location.reload();
+        get_ingredients();
     }
 
     let open_add = false; 
     
     let post_ingredients = [];
+    let ingredients = [];
     
     async function post_restock_ingredient(id) {
         const data = {
@@ -76,7 +89,7 @@
         };
         const response = await fetch('/manager/ingredients/post_restock_ingredient', options);
         await response.json();
-        location.reload();
+        get_ingredients();
     }
 
     async function patch_ingredients() {
@@ -92,7 +105,7 @@
         };
         const response = await fetch('/manager/ingredients/patch_ingredients', options);
         await response.json();
-        location.reload();
+        get_ingredients();
     }
 
     async function post_restock() {
@@ -118,13 +131,13 @@
         
         patch_ingredients();        
         post_restock_ingredient(value.id);
-        location.reload();
+        get_ingredients();
     }
 
     let total_restock = 0;
     function calculate_total_restock() {
         total_restock = 0;
-        for (const i of data.ingredients) {
+        for (const i of ingredients) {
             const qty = i.needed_qty - i.current_qty;
             if (qty <= 0)
                 continue;
@@ -134,10 +147,7 @@
         }
     }  
 
-    export let data;
-    let ingredients = data.ingredients;
-    ingredients.sort((a, b) => a.ingredient_id - b.ingredient_id);
-    calculate_total_restock();
+
 
 </script>
 
