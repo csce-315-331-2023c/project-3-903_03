@@ -33,7 +33,7 @@
   let statuses = {};
   let from_date = "";
   let to_date = "";
-  let checked_statuses = [false, false, false];
+  let checked_statuses = [true, true, true];
 
   onMount(() => {
     get_statuses();
