@@ -13,11 +13,11 @@
     CardText,
     CardTitle,
     Row,
-    Col
+    Col,
   } from 'sveltestrap';
 
   let name = 'John Smith';
-  let id = 6;
+  let id = 2;
   let customer_orders = [];
   let statuses = {};
 
@@ -86,7 +86,7 @@
   
   <title>Customer Order History</title>
   
-  <header>
+  <header style="text-align: left; font-size: 30px">
     Customer, { name }
   </header>
   <header>
@@ -96,7 +96,7 @@
   <body>
     <ListGroup>
       {#each customer_orders as customer_order}
-        <ListGroupItem >
+        <ListGroupItem style="font-size: 30px; width: 50%; margin-left: 25%">
           <Card>
             <CardHeader>
               <CardTitle style="font-size: 35px">

@@ -9,7 +9,8 @@ export async function GET({url}) {
          TO_CHAR(co.order_date, 'YYYY-MM-DD') AS order_date, \
          co.order_time AS order_time \
          FROM _customer_order AS co \
-         WHERE co.id = '${id}'; `
+         WHERE co.id = '${id}' \
+         ORDER BY co.customer_order_id DESC; `
     try {
         let result = await connection.query(sql);
         return json({success: true, customer_orders: result.rows});
