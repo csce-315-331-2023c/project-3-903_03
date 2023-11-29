@@ -27,7 +27,7 @@ export async function GET({url}) {
          FROM _customer_order AS co \
          WHERE co.id = '${id}' ${fd} ${td} ${status}\ 
          ORDER BY co.customer_order_id DESC \
-         LIMIT 100; `;
+         LIMIT 10; `;
     let co_oi_sql = 
          `SELECT mi.menu_item_id, mi.name, oi.amount \
           FROM _ordered_item AS oi, _menu_item AS mi \

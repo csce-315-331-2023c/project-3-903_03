@@ -22,7 +22,7 @@
     InputGroup,
     InputGroupText
   } from 'sveltestrap';
-	import { get_spread_update } from 'svelte/internal';
+	import { get_custom_elements_slots, get_spread_update } from 'svelte/internal';
 
   let open_filter = false;
   const toggle_filter = () => (open_filter = !open_filter);
@@ -100,6 +100,43 @@
     get_customer_orders(id, from_date, to_date, checked_statuses);
   }
 
+  async function delete_order(customer_order_id) {
+    const data = {
+            customer_order_id: customer_order_id,
+        };
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        const response = await fetch('/cashier/order_history/delete_order', options);
+        await response.json();
+        get_customer_orders(id, from_date, to_date, checked_statuses);
+  }
+
+  async function patch_order(customer_order_id, status_id) {
+        const data = {
+            customer_order_id: customer_order_id,
+            status_id : status_id,
+        };
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        const response = await fetch('/cashier/order_history/patch_order', options);
+        await response.json();
+        get_customer_orders(id, from_date, to_date, checked_statuses);
+  }
+
+  async function edit_order(id) {
+
+  }
+
   let size = 'lg';
   </script>
   
@@ -171,12 +208,20 @@
             <CardHeader>
               <CardTitle style="font-size: 35px">
                 Order #{customer_order.customer_order_id} {statuses[customer_order.status_id]}
+
+                <Button style="float:right; margin:5px" on:click={() => delete_order(customer_order.customer_order_id)}>Delete</Button>
+                {#if customer_order.status_id == 0}
+                  <Button style="float:right; margin:5px" on:click={() => patch_order(customer_order.customer_order_id, 2)}>Cancel</Button>
+                  <Button style="float:right; margin:5px" on:click={() => patch_order(customer_order.customer_order_id, 1)}>Complete</Button>              
+                  <Button style="float:right; margin:5px" on:click={() => edit_order(customer_order.customer_order_id)}>Edit</Button>                
+                {/if} 
+                
               </CardTitle>
-              <CardText style="font-size: 20px">
-               
-              </CardText>
-              
+
+                 
+            
             </CardHeader>
+
             <CardBody>
               <Table bordered style="font-size: 30px">
                 <thead>
@@ -209,6 +254,7 @@
               </Row>
  
             </CardFooter>
+            
           </Card>
         </ListGroupItem>
       {/each}
