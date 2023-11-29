@@ -67,5 +67,6 @@
     <a href="./manager">manager</a>
     <a href="./customer">customer</a>
     <a href="./cashier">cashier</a>
+    <a href="./admin">admin</a>
     <!-- Work on other navigation screens-->   
 </nav>

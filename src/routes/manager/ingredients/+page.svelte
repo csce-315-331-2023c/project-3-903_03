@@ -19,7 +19,9 @@
              ModalHeader,
              FormGroup,
              Input,
-             Label
+             Label,
+             Row,
+             Col
             } from 'sveltestrap';
 
 
@@ -188,6 +190,21 @@
         get_ingredients();
     }
 
+    async function delete_ingredient(ingredient_id) {
+        const data = {
+                ingredient_id: ingredient_id,
+            };
+            const options = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            };
+            const response = await fetch('/manager/ingredients/delete', options);
+            await response.json();
+            get_ingredients();
+  }
 
 </script>
 
@@ -307,68 +324,76 @@
                 {/if}
             </td>
             <td>
-                <div>
-                    <Button color="primary" style="margin-left:25px" on:click={() => edit_toggle(i)}>Edit</Button>
-                    <Modal isOpen={edit_open} backdrop={false}>
-                        <ModalHeader style="background-color:gray; color:white">Edit Ingredient</ModalHeader>
-                        <ModalBody style="background-color:lightgray">
-                            <FormGroup>
-                                <Label for="ename_${i.ingredient_id}">Name</Label>
-                                <Input
-                                    type="text"
-                                    name="name"
-                                    id="ename_${i.ingredient_id}"
-                                    placeholder="name"
-                                    bind:value={edit_name}
-                                    autocomplete="off"
-                                />
-                            </FormGroup>
-                
-                
-                            <FormGroup>
-                                <Label for="ecurrent_${i.ingredient_id}">Current Quantity</Label>
-                                <Input
-                                    type="number"
-                                    name="current_qty"
-                                    id="ecurrent_${i.ingredient_id}"
-                                    placeholder="current qty"
-                                    bind:value={edit_current}
-                                    autocomplete="off"
-                                />
-                            </FormGroup>
+                <Row>
+                    <Col>
+                        <Button color="primary" style="margin-left:25px" on:click={() => edit_toggle(i)}>Edit</Button>
+                        <Modal isOpen={edit_open} backdrop={false}>
+                            <ModalHeader style="background-color:gray; color:white">Edit Ingredient</ModalHeader>
+                            <ModalBody style="background-color:lightgray">
+                                <FormGroup>
+                                    <Label for="ename_${i.ingredient_id}">Name</Label>
+                                    <Input
+                                        type="text"
+                                        name="name"
+                                        id="ename_${i.ingredient_id}"
+                                        placeholder="name"
+                                        bind:value={edit_name}
+                                        autocomplete="off"
+                                    />
+                                </FormGroup>
+                    
+                    
+                                <FormGroup>
+                                    <Label for="ecurrent_${i.ingredient_id}">Current Quantity</Label>
+                                    <Input
+                                        type="number"
+                                        name="current_qty"
+                                        id="ecurrent_${i.ingredient_id}"
+                                        placeholder="current qty"
+                                        bind:value={edit_current}
+                                        autocomplete="off"
+                                    />
+                                </FormGroup>
 
-                            <FormGroup>
-                                <Label for="eneeded_${i.ingredient_id}">Needed Quantity</Label>
-                                <Input
-                                    type="number"
-                                    name="needed_qty"
-                                    id="eneeded_${i.ingredient_id}"
-                                    placeholder="needed qty"
-                                    bind:value={edit_needed}
-                                    autocomplete="off"
-                                />
-                            </FormGroup>
+                                <FormGroup>
+                                    <Label for="eneeded_${i.ingredient_id}">Needed Quantity</Label>
+                                    <Input
+                                        type="number"
+                                        name="needed_qty"
+                                        id="eneeded_${i.ingredient_id}"
+                                        placeholder="needed qty"
+                                        bind:value={edit_needed}
+                                        autocomplete="off"
+                                    />
+                                </FormGroup>
 
-                            <FormGroup>
-                                <Label for="ecost_${i.ingredient_id}">Cost</Label>
-                                <Input
-                                    type="text"
-                                    name="cost"
-                                    id="ecost_${i.ingredient_id}"
-                                    placeholder="cost"
-                                    bind:value={edit_cost}
-                                    autocomplete="off"
-                                />
-                            </FormGroup>
+                                <FormGroup>
+                                    <Label for="ecost_${i.ingredient_id}">Cost</Label>
+                                    <Input
+                                        type="text"
+                                        name="cost"
+                                        id="ecost_${i.ingredient_id}"
+                                        placeholder="cost"
+                                        bind:value={edit_cost}
+                                        autocomplete="off"
+                                    />
+                                </FormGroup>
 
+                    
+                            </ModalBody>
+                            <ModalFooter style="background-color:grey">
+                                <Button color="primary" on:click={edit_ingredient}>Update</Button>
+                                <Button color="light" on:click={edit_cancel}>Cancel</Button>
+                            </ModalFooter>
+                        </Modal>
+                    </Col>
+                    <Col>
+                        <Button color="warning" on:click={() => delete_ingredient(i.ingredient_id)}>Delete</Button> 
+                    </Col>                    
+                </Row>
+
+                        
                 
-                        </ModalBody>
-                        <ModalFooter style="background-color:grey">
-                            <Button color="primary" on:click={edit_ingredient}>Update</Button>
-                            <Button color="light" on:click={edit_cancel}>Cancel</Button>
-                        </ModalFooter>
-                    </Modal>
-                </div>
             </td>            
         </tr>
         {/each}
