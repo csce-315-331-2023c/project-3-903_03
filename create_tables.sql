@@ -86,10 +86,10 @@ CREATE TABLE _restock_ingredient (
 INSERT INTO 
 	_user_category(category_id, name)
 VALUES
-	(0, 'admin'),
-	(1, 'manager'),
-	(2, 'cashier'),
-	(3, 'customer');
+	(0, 'Admin'),
+	(1, 'Manager'),
+	(2, 'Cashier'),
+	(3, 'Customer');
 
 
 INSERT INTO 
@@ -109,7 +109,8 @@ VALUES
 	(3, 'Brendan Fattig', 'bfattig', 'liver2', 2),
 	(4, 'Megha Subhash', 'ssubhash', 'laboratory34', 2),
 	(5, 'Aaron Weng', 'aweng', 'jump560', 2),
-	(6, 'John Smith', 'jsmith', 'customer', 3);
+	(6, 'John Smith', 'jsmith', 'customer', 3),
+    (7, 'Guest', 'guest', '', 3);
 	
 	
 INSERT INTO 

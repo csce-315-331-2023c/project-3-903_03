@@ -160,11 +160,12 @@
 
 <title>Customer Place Order</title>
 
-<header>
-  Customer, { name }
+<header style="text-align: left">
+  What would you like to order?
 </header>
 
 <body>
+  &nbsp
   <Container>
     <Row>
       <Col xs="6">
