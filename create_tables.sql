@@ -86,6 +86,7 @@ CREATE TABLE _restock_ingredient (
 INSERT INTO 
 	_user_category(category_id, name)
 VALUES
+	(0, 'admin'),
 	(1, 'manager'),
 	(2, 'cashier'),
 	(3, 'customer');
@@ -102,6 +103,7 @@ VALUES
 INSERT INTO 
 	_user(id, name, username, password, category_id)
 VALUES
+	(0, 'administrator', 'admin', 'admin', 0),
 	(1, 'Philip Ritchey', 'pritchey', 'dollar1', 1),
 	(2, 'Sophia Dronova', 'sdronova', 'frighten3', 2),
 	(3, 'Brendan Fattig', 'bfattig', 'liver2', 2),
