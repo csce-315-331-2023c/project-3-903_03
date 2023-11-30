@@ -141,11 +141,7 @@
 </style>
 
 <title>Manager: Trends</title>
-
-<div>
-    <header >Manager: { name }</header>
-</div>
-
+&nbsp
 <div class="container">
     <div class="row">
         <div class="col-sm-3">

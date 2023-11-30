@@ -16,8 +16,7 @@
     Col,
   } from 'sveltestrap';
 
-  let name = 'John Smith';
-  let id = 6;
+  let id = 2;
   let customer_orders = [];
   let statuses = {};
 
@@ -86,14 +85,12 @@
   
   <title>Customer Order History</title>
   
-  <header style="text-align: left; font-size: 30px">
-    Customer, { name }
-  </header>
   <header>
     Order History
   </header>
  
   <body>
+    &nbsp
     <ListGroup>
       {#each customer_orders as customer_order}
         <ListGroupItem style="font-size: 30px; width: 50%; margin-left: 25%">

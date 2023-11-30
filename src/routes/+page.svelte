@@ -37,7 +37,7 @@
 <div class="container">
 	<h1>Welcome to Tiff's Treats</h1>
 	<p>Home of delicious warm cookies delivered to your doorstep!</p>
-	<Button href="/customer/place_order" 
+	<Button href="/guest" 
 			style="margin: 10px; width:250px; padding:13px; font-size:19px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19" 
 			color="primary">
 			Place Order

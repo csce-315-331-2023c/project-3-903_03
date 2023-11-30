@@ -160,8 +160,8 @@
 
 <title>Cashier Place Order</title>
 
-<header>
-  Cashier, { name }
+<header style="text-align: center">
+  What would you like to order?
 </header>
 
 <body>

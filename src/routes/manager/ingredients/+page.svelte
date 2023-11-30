@@ -220,10 +220,6 @@
 <title>Manager: Ingredients</title>
 
 <div>
-    <header >Manager: { manager_name }</header>
-</div>
-
-<div>
     <header style="text-align:center; font-size:25px">Ingredients</header>
 </div>
 
@@ -282,18 +278,15 @@
             <Button color="light" on:click={cancel_ingredient}>Cancel</Button>
         </ModalFooter>
     </Modal>
+
+    <div style="float:right">
+        <h>Restock Cost ($) :</h>
+        <input type="text" bind:value={total_restock} readonly/>
+        <Button on:click={post_restock} style="margin-right:30px" >Place Restock Order</Button>    
+    </div>
+
 </div>
 &nbsp 
-
-
-<div style="float:right">
-    <h>Restock Cost ($) :</h>
-    <input type="text" bind:value={total_restock} readonly/>
-    <Button on:click={post_restock} >Place Restock Order</Button>    
-</div>
-
-<div>&nbsp</div>
-
 
 <Table bordered>
     <thead>

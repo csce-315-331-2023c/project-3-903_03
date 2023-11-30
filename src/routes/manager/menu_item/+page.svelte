@@ -160,10 +160,6 @@
 <title>Manager: Menu Items</title>
 
 <div>
-    <header >Manager: { name }</header>
-</div>
-
-<div>
     <header style="text-align:center; font-size:25px">Menu Items</header>
 </div>
 

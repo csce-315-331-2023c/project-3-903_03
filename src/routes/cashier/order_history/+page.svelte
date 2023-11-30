@@ -141,12 +141,10 @@
   </script>
   
   <title>Cashier Order History</title>
-  
-  <header>
-    Cashier, { name }
-  </header>
+
   <header>
     Order History
+
     <Button on:click={toggle_filter}>Filter</Button>
     <Modal isOpen={open_filter} backdrop="static" {toggle_filter} {size}>
       <ModalHeader {toggle_filter}>Filter</ModalHeader>
@@ -201,6 +199,7 @@
   </header>
  
   <body>
+    &nbsp
     <ListGroup>
       {#each customer_orders as customer_order}
         <ListGroupItem style="font-size: 30px; width: 50%; margin-left: 25%">

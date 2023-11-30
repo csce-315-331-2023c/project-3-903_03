@@ -1,5 +1,5 @@
 <script>
-    import { auth } from '$lib/auth.js';
+    import { auth, checkAuthentication } from '$lib/auth.js';
     import {
       Collapse,
       Navbar,
@@ -17,9 +17,9 @@
     import { weatherData, getCurrentConditions } from '$lib/weather.ts';
   
     let isOpen = false;
-    $: name = ($auth.user == null ? '' : $auth.user.name);
-    $: category = ($auth.user == null ? '' : $auth.user.category);
-    $: cat = ($auth.user == null ? '' : category[0].toUpperCase() + category.slice(1));
+    $: name = ($auth.name == null ? '' : $auth.name);
+    $: category = ($auth.category == null ? '' : $auth.category);
+    $: cat = ($auth.category == null ? '' : category[0].toUpperCase() + category.slice(1));
     $: is_manager_visible = (category == 'manager' ? true : false);
     $: is_customer_visible = (category == 'customer' ? true : false);
     $: is_cashier_visible = (category == 'cashier' ? true : false);
@@ -106,5 +106,5 @@
       </Nav>
     </Collapse>
   </Navbar>
-
+  
   <slot/>

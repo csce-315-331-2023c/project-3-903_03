@@ -160,7 +160,7 @@
 
 <title>Customer Place Order</title>
 
-<header style="text-align: left">
+<header style="text-align: center">
   What would you like to order?
 </header>
 
