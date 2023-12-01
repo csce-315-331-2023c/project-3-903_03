@@ -1,5 +1,6 @@
 <script>
   import Nav from "./Nav.svelte";
+	import { page } from '$app/stores';
 </script>
 
 <Nav />

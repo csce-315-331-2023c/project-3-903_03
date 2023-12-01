@@ -6,5 +6,5 @@
 <Nav />
 
 
-<h1>About Tiff's Treats</h1>
-<p>Tiff's was started in 1999 in Austin, TX.</p>
+<h1>Our Story</h1>
+<p>Today, Tiff’s Treats is famous for bringing hot, fresh-from-the-oven cookies and brownies to hungry treat lovers everywhere, but it all started with $20, a cell phone, and a dream.</p>

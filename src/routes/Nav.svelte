@@ -1,5 +1,6 @@
 <script lang="ts">
     import { signIn } from '@auth/sveltekit/client';
+    import { signOut } from '@auth/sveltekit/client';
     import {
       Collapse,
       Navbar,
@@ -36,16 +37,26 @@
           <NavLink href="./about">About</NavLink>
         </NavItem>
         <NavItem>
+          <NavLink href="./login">Login</NavLink>
+          <!--
             <NavLink on:click={() => signIn(
               'auth0', {
                 redirect: false,
-                callbackUrl: 'http://localhost:4000/about'
+                callbackUrl: '/'
               },
               {
                 scope: 'api openid profile email'
               }
             )}>Login</NavLink>
-          </NavItem>
+          -->
+        </NavItem>
+        <NavItem>
+          <NavLink on:click={() => signOut({
+            redirect: true,
+            callbackUrl: '/'
+            })}>Sign Out
+          </NavLink>
+        </NavItem>
       </Nav>
     </Collapse>
   </Navbar>

@@ -1,10 +1,24 @@
 <script lang="ts">
     import Nav from "../Nav.svelte";
     import { signIn } from '@auth/sveltekit/client';
+    import { onMount } from 'svelte';
+    //import { page } from '$app/stores';
+    /*
+    onMount(async () => {
+      const idToken = $page.data?.session?.user.id_token as string;
+      window.location.href =
+            import.meta.env.VITE_ISSUER +
+            `oidc/logout?post_logout_redirect_uri=${encodeURIComponent(
+                window.location.origin
+            )}&id_token_hint=${idToken}`;
+    });
+    */
 
     let username = "";
     let password = "";
+
 </script>
+
 
 <Nav />
 
@@ -12,7 +26,7 @@
 <img src="https://consultancy.innotecuk.com/wp-content/uploads/2017/10/cookies-banner.jpg" alt="cookies" style="width:100%" height="175">
 <div style="width: 100%; height: 100%; background: #D9D9D9">
     <p style="font-size: 40px; text-align: center; margin-bottom: 0 auto" >Welcome to Tiff's Treats! <br></p>
-    <form style="text-align: center" onsubmit='window.location.reload()'>
+    <form style="text-align: center">
         <label for="uname">username:</label>
         <input type="text" id="uname" name="username" bind:value={username}><br><br>
       
@@ -26,7 +40,7 @@
       <button on:click={() => signIn(
         'auth0', {
           redirect: false,
-          callbackUrl: 'http://localhost:4000/about'
+          callbackUrl: '/'
         },
         {
           scope: 'api openid profile email'
