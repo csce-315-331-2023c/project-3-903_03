@@ -55,6 +55,11 @@
 </div>
 
 <nav>
+	<a href="/manager">manager</a>
+	<a href="/customer">customer</a>
+	<a href="/cashier">cashier</a>
+	<!-- Work on other navigation screens-->
+</nav>
 
 <style>
 	.center-container {
