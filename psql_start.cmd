@@ -1,0 +1,1 @@
+psql -h csce-315-db.engr.tamu.edu -U csce315_903_03user -d csce315_903_03db

@@ -1,24 +1,25 @@
 <script lang="ts">
-  import { Accordion, AccordionItem } from 'sveltestrap';
+	import { Accordion, AccordionItem } from 'sveltestrap';
+	import Nav from '$lib/Nav.svelte';
 
-  export let data;
-
+	export let data;
 </script>
-  
+
 <head>
-  <title>Menu Board</title>    
+	<title>Menu Board</title>
 </head>
 
-<div class ="header" style="text-align: center; font-size: 30px">Menu Items</div>
+<Nav />
 
+<div class="header" style="text-align: center; font-size: 30px">Menu Items</div>
 
 <Accordion stayOpen>
-  {#each data.menu_items as menu_item}
-    <AccordionItem header={menu_item.name}>
-      <img src = "favicon.png" alt = {menu_item.name}>
-      <p>price: {menu_item.price}</p>
-      <p>calories: {menu_item.calories} cals</p>
-    </AccordionItem> 
-  {/each}    
-
+	{#each data.menu_items as menu_item}
+		<AccordionItem header={menu_item.name}>
+			<img src="favicon.png" alt={menu_item.name} />
+			<p>Price: {menu_item.price}</p>
+			<p>Calories: {menu_item.calories} cals</p>
+			<p>Ingredients: {menu_item.ingredients}</p>
+		</AccordionItem>
+	{/each}
 </Accordion>
