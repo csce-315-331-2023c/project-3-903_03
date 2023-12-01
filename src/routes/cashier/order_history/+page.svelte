@@ -133,8 +133,32 @@
         get_customer_orders(id, from_date, to_date, checked_statuses);
   }
 
-  async function edit_order(id) {
+  async function update_order(customer_order_id, status_id) {
+    if (patch_ingredients(customer_order_id, status_id)) 
+      patch_order(customer_order_id, status_id);
+    else {
+      console.log("Not enough ingredients");
+    }
+  }
 
+  async function patch_ingredients(customer_order_id, status_id) {
+    if (status_id != 1)
+      return true;
+      const data = {
+            customer_order_id: customer_order_id,
+        };
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        const response = await fetch('/cashier/order_history/patch_ingredients', options);
+        const result = await response.json();
+        if (result.success)
+          return true;
+        return false;
   }
 
   let size = 'lg';
@@ -210,9 +234,8 @@
 
                 <Button style="float:right; margin:5px;" color="danger" on:click={() => delete_order(customer_order.customer_order_id)}>Delete</Button>
                 {#if customer_order.status_id == 0}
-                  <Button style="float:right; margin:5px" color="warning" on:click={() => patch_order(customer_order.customer_order_id, 2)}>Cancel</Button>
-                  <Button style="float:right; margin:5px" color="success" on:click={() => patch_order(customer_order.customer_order_id, 1)}>Complete</Button>              
-                  <Button style="float:right; margin:5px" color="primary" on:click={() => edit_order(customer_order.customer_order_id)}>Edit</Button>                
+                  <Button style="float:right; margin:5px" color="warning" on:click={() => update_order(customer_order.customer_order_id, 2)}>Cancel</Button>
+                  <Button style="float:right; margin:5px" color="success" on:click={() => update_order(customer_order.customer_order_id, 1)}>Complete</Button>              
                 {/if} 
                 
               </CardTitle>
