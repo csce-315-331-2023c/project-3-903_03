@@ -1,7 +1,7 @@
 <script>
     import { auth, isAuthenticated } from '$lib/auth.js';
     import { goto } from '$app/navigation';
-    import { Form, InputGroup, InputGroupText, Input, Button, ButtonGroup } from 'sveltestrap';
+    import { Form, InputGroup, InputGroupText, Input, Button, ButtonGroup, Card, CardBody } from 'sveltestrap';
 
     let username = '';
     let password = '';
@@ -17,9 +17,10 @@
             set_auth(true, id, username, password, name, category);
             username = '';
             password ='';
+            message = '';
             goto(`/${category}`, { replace: true });
         } else {
-            console.log("Wrong credential");
+            message = 'Wrong credentials'
         }
     }   
     
@@ -35,34 +36,35 @@
         });      
     }
    
-function logout() {
-    set_auth(false, null, null, null, null, null);
-}
+    function logout() {
+        set_auth(false, null, null, null, null, null);
+    }
 
-function set_auth (isA, id, username, password, name, category) {
-    console.log(isA, id, username, password, name, category);
-    auth.set({
-        isAuthenticated: isA, 
-        id : id,
-        username : username,
-        password : password,
-        name : name,
-        category : category
-    });      
-}
+    function set_auth (isA, id, username, password, name, category) {
+        console.log(isA, id, username, password, name, category);
+        auth.set({
+            isAuthenticated: isA, 
+            id : id,
+            username : username,
+            password : password,
+            name : name,
+            category : category
+        });      
+    }
 
-function check() {
-    if (isAuthenticated()) 
-        logout();
-    else
-        login();
-}    
+    function check() {
+        if (isAuthenticated()) 
+            logout();
+        else
+            login();
+    }    
 
+    let message = '';
 </script>
 
 
 <img src="https://consultancy.innotecuk.com/wp-content/uploads/2017/10/cookies-banner.jpg" alt= "Cookies" style="width:100%" height="175">
-<div class="center-container" style="width: 100%; height: 100%; background: #D9D9D9">
+<div class="center-container" style="width: 100%; height: 100%">
     <p style="font-size: 40px; text-align: center; margin-bottom: 0 auto" >Welcome to Tiff's Treats! <br></p>
     <Form >
         <InputGroup  style="width: 300px;padding: 10px;">
@@ -76,7 +78,16 @@ function check() {
         <ButtonGroup style="width: 300px;padding: 10px;">
             <Button active on:click={check}>Login</Button>
         </ButtonGroup>
+        &nbsp
+        {#if (message !== '')}
+            <Card style="text-align: center; color: white" color="danger">
+                    {message}
+            </Card>
+        {/if}
+
+        
     </Form>
+
 </div>
 
 <style>
