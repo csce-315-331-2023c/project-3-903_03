@@ -4,6 +4,13 @@
     import { Card, CardHeader, CardBody, CardFooter } from 'sveltestrap';
     import { onMount } from 'svelte';
 
+    import { auth } from '$lib/auth.js';
+    import { goto } from '$app/navigation';
+    let category;
+    $: category = $auth.category
+    $: if (!import.meta.env.SSR &&  category !== 'admin')
+        goto(`/login`, { replace: true });
+
     onMount(() => {
         get_categories();
         get_users();

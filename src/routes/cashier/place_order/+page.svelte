@@ -9,8 +9,15 @@
   let modal_open = false;
   const modal_toggle = () => (modal_open = !modal_open);
 
-  let name = 'Sophia Dronova'
-  let id = 2;
+  import { auth } from '$lib/auth.js';
+  import { goto } from '$app/navigation';
+  let category;
+  let id;
+  $: category = $auth.category
+  $: id = $auth.id;
+  $: if (!import.meta.env.SSR &&  category !== 'cashier')
+      goto(`/login`, { replace: true });
+
   let orderitems = []
   let menuitems = [];
   let total = "$0.00";

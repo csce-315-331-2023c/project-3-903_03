@@ -38,8 +38,9 @@
     const currentConditions = getCurrentConditions(current.weatherCode);
 
   </script>
-  
-   <Navbar color="light" light expand="md">
+
+ 
+   <Navbar color="light" light expand="md" style="font-size: 18px; font-weight:475" >
     <NavbarBrand href="/">Tiff's Treats</NavbarBrand>
     <NavbarToggler on:click={() => (isOpen = !isOpen)} />
     {#if cat !== ''}

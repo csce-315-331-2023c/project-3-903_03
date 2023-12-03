@@ -1,6 +1,12 @@
 <script>
     import { Button } from 'sveltestrap';
 
+    import { auth } from '$lib/auth.js';
+    import { goto } from '$app/navigation';
+    let category;
+    $: category = $auth.category
+    $: if (!import.meta.env.SSR &&  category !== 'customer')
+        goto(`/login`, { replace: true });
 </script>
 
 
