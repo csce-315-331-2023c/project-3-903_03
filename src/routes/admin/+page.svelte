@@ -304,8 +304,5 @@
         font-size: 40px;
         padding: 5px;
     }
-    body {
-      background-color: #dbdbdd; 
-    }
 
 </style>
