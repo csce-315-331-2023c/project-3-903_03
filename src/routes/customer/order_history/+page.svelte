@@ -16,7 +16,7 @@
     Col,
   } from 'sveltestrap';
 
-  let id = 2;
+  let id = 6;
   let customer_orders = [];
   let statuses = {};
 
