@@ -11,7 +11,10 @@
         FormGroup,
         FormText,
         Input,
-        Label
+        Label,
+        Card,
+        CardHeader,
+        CardBody
     } from 'sveltestrap';
 
     onMount(() => {
@@ -150,179 +153,181 @@
 
 <style>
     header {
-        text-align: left;
-        font-size: 20px;
-        padding: 10px;
+        text-align: center;
+        font-size: 40px;
+        padding: 5px;
     }
 
 </style>
 
 <title>Manager: Menu Items</title>
 
-<div>
-    <header style="text-align:center; font-size:25px">Menu Items</header>
-</div>
+<header>Menu Items</header>
 
-<div>
-    <Button color="primary" style="margin-left:25px" on:click={add_toggle}>Add New Menu Item</Button>
-    <Modal isOpen={add_open} backdrop={false} {add_toggle} >
-        <ModalHeader style="background-color:gray; color:white" {add_toggle} >Add New Menu Item</ModalHeader>
-        <ModalBody style="background-color:lightgray">
-            <FormGroup>
-                <Label for="aname">Name</Label>
-                <Input
-                    type="text"
-                    name="name"
-                    id="aname"
-                    placeholder="name"
-                    bind:value={add_name}
-                    autocomplete="off"
-                />
-            </FormGroup>
-
-            <FormGroup>
-                <Label for="aprice">Price</Label>
-                <Input
-                    type="text"
-                    name="price"
-                    id="aprice"
-                    placeholder="price"
-                    bind:value={add_price}
-                    autocomplete="off"
-                />
-            </FormGroup>
-
-            <FormGroup>
-                <Label for="acalories">Calories</Label>
-                <Input
-                    type="number"
-                    name="calories"
-                    id="acalories"
-                    placeholder="calories"
-                    bind:value={add_calories}
-                    autocomplete="off"
-                />
-            </FormGroup>
-
-            <FormGroup>
-                <Label for="aseason">Season</Label>
-                <Input
-                    type="text"
-                    name="season"
-                    id="aseason"
-                    placeholder="none"
-                    bind:value={add_season}
-                    autocomplete="off"
-                />
-            </FormGroup>
-
-            <FormGroup>
-                <Label>Ingredients</Label>
-                {#each ingredients as i}
-                    <Input
-                        id={i.ingredient_id}
-                        type="checkbox"
-                        bind:group={add_ingredients}
-                        value="{i.name}"
-                        on:change={(event) => handleCheckboxChange(event, i)}
-                        label={i.name}
-                    />
-                {/each}
-            </FormGroup>
-
-        </ModalBody>
-        <ModalFooter style="background-color:grey">
-            <Button color="primary" on:click={add_menu_item}>Add New Item</Button>
-            <Button color="light" on:click={add_cancel}>Cancel</Button>
-        </ModalFooter>
-    </Modal>
-</div>
 &nbsp 
 
-<Table bordered>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Calories</th>
-            <th>Season</th>
-            <th>Ingredients</th>
-            <th>Edit Button</th>
-        </tr>
-    </thead>
-    <tbody>
-        {#each menu_items as menu_item }
-        <tr>
-            <td>{menu_item.menu_item_id}</td>
-            <td>{menu_item.name}</td>
-            <td>{menu_item.price}</td>    
-            <td>{menu_item.calories}</td>
-            <td>{menu_item.season}</td>
-            <td>{menu_item.ingredients}</td>
-            <td>
-                <div>
-                    <Button color="primary" style="margin-left:25px" on:click={() => edit_toggle(menu_item)}>Edit</Button>
-                    <Modal isOpen={edit_open} backdrop={false}>
-                        <ModalHeader style="background-color:gray; color:white">Edit Menu Item</ModalHeader>
-                        <ModalBody style="background-color:lightgray">
-                            <FormGroup>
-                                <Label for="ename_${menu_item.menu_item_id}">Name</Label>
-                                <Input
-                                    type="text"
-                                    name="name"
-                                    id="ename_${menu_item.menu_item_id}"
-                                    placeholder="name"
-                                    bind:value={edit_name}
-                                    autocomplete="off"
-                                />
-                            </FormGroup>
-                
-                            <FormGroup>
-                                <Label for="eprice_${menu_item.menu_item_id}">Price</Label>
-                                <Input
-                                    type="text"
-                                    name="price"
-                                    id="eprice_${menu_item.menu_item_id}"
-                                    placeholder="price"
-                                    bind:value={edit_price}
-                                    autocomplete="off"
-                                />
-                            </FormGroup>
-                
-                            <FormGroup>
-                                <Label for="ecalories_${menu_item.menu_item_id}">Calories</Label>
-                                <Input
-                                    type="number"
-                                    name="calories"
-                                    id="ecalories_${menu_item.menu_item_id}"
-                                    placeholder="calories"
-                                    bind:value={edit_calories}
-                                    autocomplete="off"
-                                />
-                            </FormGroup>
+<Card style="font-size: 18px; margin-left: 20%; margin-right: 20%">
+    <CardHeader>
+        <Button color="primary" style="margin-left:25px" on:click={add_toggle}>Add New Menu Item</Button>
+        <Modal isOpen={add_open} backdrop={false} {add_toggle} >
+            <ModalHeader style="background-color:gray; color:white" {add_toggle} >Add New Menu Item</ModalHeader>
+            <ModalBody style="background-color:lightgray">
+                <FormGroup>
+                    <Label for="aname">Name</Label>
+                    <Input
+                        type="text"
+                        name="name"
+                        id="aname"
+                        placeholder="name"
+                        bind:value={add_name}
+                        autocomplete="off"
+                    />
+                </FormGroup>
+    
+                <FormGroup>
+                    <Label for="aprice">Price</Label>
+                    <Input
+                        type="text"
+                        name="price"
+                        id="aprice"
+                        placeholder="price"
+                        bind:value={add_price}
+                        autocomplete="off"
+                    />
+                </FormGroup>
+    
+                <FormGroup>
+                    <Label for="acalories">Calories</Label>
+                    <Input
+                        type="number"
+                        name="calories"
+                        id="acalories"
+                        placeholder="calories"
+                        bind:value={add_calories}
+                        autocomplete="off"
+                    />
+                </FormGroup>
+    
+                <FormGroup>
+                    <Label for="aseason">Season</Label>
+                    <Input
+                        type="text"
+                        name="season"
+                        id="aseason"
+                        placeholder="none"
+                        bind:value={add_season}
+                        autocomplete="off"
+                    />
+                </FormGroup>
+    
+                <FormGroup>
+                    <Label>Ingredients</Label>
+                    {#each ingredients as i}
+                        <Input
+                            id={i.ingredient_id}
+                            type="checkbox"
+                            bind:group={add_ingredients}
+                            value="{i.name}"
+                            on:change={(event) => handleCheckboxChange(event, i)}
+                            label={i.name}
+                        />
+                    {/each}
+                </FormGroup>
+    
+            </ModalBody>
+            <ModalFooter style="background-color:grey">
+                <Button color="primary" on:click={add_menu_item}>Add New Item</Button>
+                <Button color="light" on:click={add_cancel}>Cancel</Button>
+            </ModalFooter>
+        </Modal>
+    </CardHeader>
+    <CardBody>
+        <Table bordered>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Calories</th>
+                    <th>Season</th>
+                    <th>Ingredients</th>
+                    <th>Edit Button</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#each menu_items as menu_item }
+                <tr>
+                    <td>{menu_item.menu_item_id}</td>
+                    <td>{menu_item.name}</td>
+                    <td>{menu_item.price}</td>    
+                    <td>{menu_item.calories}</td>
+                    <td>{menu_item.season}</td>
+                    <td>{menu_item.ingredients}</td>
+                    <td>
+                        <div>
+                            <Button color="primary" style="margin-left:25px" on:click={() => edit_toggle(menu_item)}>Edit</Button>
+                            <Modal isOpen={edit_open} backdrop={false}>
+                                <ModalHeader style="background-color:gray; color:white">Edit Menu Item</ModalHeader>
+                                <ModalBody style="background-color:lightgray">
+                                    <FormGroup>
+                                        <Label for="ename_${menu_item.menu_item_id}">Name</Label>
+                                        <Input
+                                            type="text"
+                                            name="name"
+                                            id="ename_${menu_item.menu_item_id}"
+                                            placeholder="name"
+                                            bind:value={edit_name}
+                                            autocomplete="off"
+                                        />
+                                    </FormGroup>
+                        
+                                    <FormGroup>
+                                        <Label for="eprice_${menu_item.menu_item_id}">Price</Label>
+                                        <Input
+                                            type="text"
+                                            name="price"
+                                            id="eprice_${menu_item.menu_item_id}"
+                                            placeholder="price"
+                                            bind:value={edit_price}
+                                            autocomplete="off"
+                                        />
+                                    </FormGroup>
+                        
+                                    <FormGroup>
+                                        <Label for="ecalories_${menu_item.menu_item_id}">Calories</Label>
+                                        <Input
+                                            type="number"
+                                            name="calories"
+                                            id="ecalories_${menu_item.menu_item_id}"
+                                            placeholder="calories"
+                                            bind:value={edit_calories}
+                                            autocomplete="off"
+                                        />
+                                    </FormGroup>
 
-                            <FormGroup>
-                                <Label for="eseason_${menu_item.menu_item_id}">Season</Label>
-                                <Input
-                                    type="text"
-                                    name="season"
-                                    id="eseason_${menu_item.menu_item_id}"
-                                    placeholder="season"
-                                    bind:value={edit_season}
-                                    autocomplete="off"
-                                />
-                            </FormGroup>
-                
-                        </ModalBody>
-                        <ModalFooter style="background-color:grey">
-                            <Button color="primary" on:click={edit_menu_item}>Update</Button>
-                            <Button color="light" on:click={edit_cancel}>Cancel</Button>
-                        </ModalFooter>
-                    </Modal>
-                </div>
-            </td>
-        </tr>
-        {/each}
-    </tbody>
-</Table>
+                                    <FormGroup>
+                                        <Label for="eseason_${menu_item.menu_item_id}">Season</Label>
+                                        <Input
+                                            type="text"
+                                            name="season"
+                                            id="eseason_${menu_item.menu_item_id}"
+                                            placeholder="season"
+                                            bind:value={edit_season}
+                                            autocomplete="off"
+                                        />
+                                    </FormGroup>
+                        
+                                </ModalBody>
+                                <ModalFooter style="background-color:grey">
+                                    <Button color="primary" on:click={edit_menu_item}>Update</Button>
+                                    <Button color="light" on:click={edit_cancel}>Cancel</Button>
+                                </ModalFooter>
+                            </Modal>
+                        </div>
+                    </td>
+                </tr>
+                {/each}
+            </tbody>
+        </Table>
+    </CardBody>
+</Card>

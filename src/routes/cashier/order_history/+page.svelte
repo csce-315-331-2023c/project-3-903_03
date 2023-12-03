@@ -177,31 +177,7 @@
             <InputGroup>
                 <InputGroupText>From Date:</InputGroupText>
                 <Input id="from_date" type = "date" bind:value={from_date} autocomplete="off"/>
-                &nbsp &nbsp
-                <InputGroupText>To Date:</InputGroupText>
-                <Input id="to_date" type = "date" bind:value={to_date} autocomplete="off"/>               
-            </InputGroup>
-            &nbsp
-            <InputGroup>
-                <Col>Status:</Col>
-                <Col>
-                  <Input 
-                    id="pending" 
-                    type="checkbox" 
-                    label="Pending"
-                    bind:checked={checked_statuses[0]}
-                    on:change={() => toggle_statuses(0)}
-                  />
-                </Col>
-                <Col>
-                  <Input
-                    id="completed"
-                    type="checkbox"
-                    label="Completed"
-                    bind:checked={checked_statuses[1]}
-                    on:change={() => toggle_statuses(1)}
-                  />
-                </Col>
+                &nbsp &nbsp 
                 <Col>
                   <Input
                     id="canceled"
@@ -239,8 +215,7 @@
                 {/if} 
                 
               </CardTitle>
-
-                 
+                
             
             </CardHeader>
 
@@ -286,7 +261,7 @@
   <style>
     header {
         text-align: center;
-        font-size: 50px;
+        font-size: 40px;
         padding: 5px;
     }
     body {

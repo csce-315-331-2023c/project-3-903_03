@@ -125,11 +125,9 @@
 </script>
 
 
-<title>Admin</title>
+<title>Admin</title> 
 
-<header>
-    Users
-</header>
+<header>Users</header>
 
 <body>
     <Card style="font-size: 20px; width: 60%; margin-left: 20%; margin-right: 20%">
@@ -303,8 +301,8 @@
 <style>
     header {
         text-align: center;
-        font-size: 25px;
-        padding: 20px;
+        font-size: 40px;
+        padding: 5px;
     }
     body {
       background-color: #dbdbdd; 

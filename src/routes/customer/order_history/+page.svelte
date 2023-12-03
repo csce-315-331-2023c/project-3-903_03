@@ -149,7 +149,7 @@
   <style>
     header {
         text-align: center;
-        font-size: 50px;
+        font-size: 40px;
         padding: 5px;
     }
     body {
