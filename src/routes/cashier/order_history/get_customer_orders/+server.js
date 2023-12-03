@@ -9,6 +9,8 @@ export async function GET({url}) {
     const pending = url.searchParams.get('pending');
     const completed = url.searchParams.get('completed');
     const canceled = url.searchParams.get('canceled');
+    const offset = url.searchParams.get('offset');
+    const limit = url.searchParams.get('limit');
     const fd = (from_date == "") ? '' : ` and '${from_date}' <= co.order_date`;
     const td = (to_date == "") ? '' : ` and '${to_date}' >= co.order_date`;
     let status = '';
@@ -19,7 +21,6 @@ export async function GET({url}) {
     status += ` or `;
     status += (canceled == 'true' ? `co.status_id = 2` : `false`);
     status += `) `;    
-
     let co_sql = 
         `SELECT co.customer_order_id, co.cost, co.status_id, \
          TO_CHAR(co.order_date, 'YYYY-MM-DD') AS order_date, \
@@ -27,7 +28,7 @@ export async function GET({url}) {
          FROM _customer_order AS co \
          WHERE co.id = '${id}' ${fd} ${td} ${status}\ 
          ORDER BY co.customer_order_id DESC \
-         LIMIT 10; `;
+         LIMIT '${limit}' OFFSET '${offset}'; `;
     let co_oi_sql = 
          `SELECT mi.menu_item_id, mi.name, oi.amount \
           FROM _ordered_item AS oi, _menu_item AS mi \
