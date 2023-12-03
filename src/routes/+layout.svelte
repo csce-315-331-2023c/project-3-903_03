@@ -102,7 +102,7 @@
           <NavLink href="/about">About</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="https://open-meteo.com/en/docs">{currentTemp}°F | {currentConditions}</NavLink>
+          <NavLink href="https://open-meteo.com/en/docs" target="_blank">{currentTemp}°F | {currentConditions}</NavLink>
         </NavItem>
       </Nav>
     </Collapse>
