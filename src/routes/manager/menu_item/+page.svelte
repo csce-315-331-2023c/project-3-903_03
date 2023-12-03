@@ -24,6 +24,14 @@
         };
     });
 
+    import { auth } from '$lib/auth.js';
+    import { goto } from '$app/navigation';
+    let category;
+    $: category = $auth.category
+    $: if (!import.meta.env.SSR && category !== 'manager')
+        goto(`/login`, { replace: true });
+
+
     async function get_menu_items() {
         let input = `/manager/menu_item/get_menu_items`;
         const response = await fetch(input);
@@ -36,8 +44,6 @@
         const response = await fetch(input);
         ingredients = await response.json();
     }
-
-    let name = 'Philip Ritchey'
 
     let ingredients = [];
     let menu_items = [];

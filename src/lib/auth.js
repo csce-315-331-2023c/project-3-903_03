@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { goto } from '$app/navigation';
 
-export const auth = writable({ 
+export let auth = writable({ 
     isAuthenticated: false, 
     id : null,
     username : null,
@@ -12,8 +12,12 @@ export const auth = writable({
 
 export function checkAuthentication() {
     if (!auth.isAuthenticated)
-    goto(`/login`, { replace: true });}
+    goto(`/login`, { replace: true });
+}
 
 export function isAuthenticated() {
     return auth.isAuthenticated;
 }
+
+
+

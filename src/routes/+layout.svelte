@@ -64,6 +64,7 @@
               <DropdownItem href="/manager/menu_item">Menu Items</DropdownItem>
               <DropdownItem href="/manager/ingredients">Ingredients</DropdownItem>
               <DropdownItem href="/manager/trends">Trends</DropdownItem>
+              <DropdownItem href="/manager/order_history">Order History</DropdownItem>
             </DropdownMenu>
           </Dropdown>
         {/if}

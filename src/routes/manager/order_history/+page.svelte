@@ -22,10 +22,16 @@
     ListGroupItem
   } from 'sveltestrap';
 
+  import { auth } from '$lib/auth.js';
+  import { goto } from '$app/navigation';
+  let category;
+  $: category = $auth.category
+  $: if (!import.meta.env.SSR && category !== 'manager')
+      goto(`/login`, { replace: true });
+
   let open_filter = false;
   const toggle_filter = () => (open_filter = !open_filter);
 
-  let id = 2;
   let customer_orders = [];
   let statuses = {};
   let from_date = "";

@@ -7,8 +7,15 @@
         };
     });
 
-    let manager_name = 'Philip Ritchey'
-    let manager_id = 1;
+    import { auth } from '$lib/auth.js';
+    import { goto } from '$app/navigation';
+    let category;
+    let manager_id;
+    $: manager_id = $auth.id;
+    $: category = $auth.category
+    $: if (!import.meta.env.SSR && category !== 'manager')
+        goto(`/login`, { replace: true });
+    
     
 
     import { Table,

@@ -40,6 +40,7 @@ function logout() {
 }
 
 function set_auth (isA, id, username, password, name, category) {
+    console.log(isA, id, username, password, name, category);
     auth.set({
         isAuthenticated: isA, 
         id : id,
@@ -87,10 +88,4 @@ function check() {
     }
   </style>
   
-<nav>
-    <a href="./manager">manager</a>
-    <a href="./customer">customer</a>
-    <a href="./cashier">cashier</a>
-    <a href="./admin">admin</a>
-    <!-- Work on other navigation screens-->   
-</nav>
+

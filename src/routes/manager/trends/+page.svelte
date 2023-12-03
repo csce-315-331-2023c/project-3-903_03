@@ -1,13 +1,14 @@
-<script lang="ts">
-	import { get_slot_changes, validate_component } from "svelte/internal";
-
-    let name = 'Philip Ritchey'
+<script>
+    import { auth } from '$lib/auth.js';
+    import { goto } from '$app/navigation';
+    let category;
+    $: category = $auth.category
+    $: if (!import.meta.env.SSR && category !== 'manager')
+        goto(`/login`, { replace: true });
     
     import {
         Button,
-        Form,
         FormGroup,
-        FormText,
         Input,
         Label,
         Table
