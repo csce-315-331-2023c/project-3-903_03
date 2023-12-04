@@ -1,14 +1,14 @@
-<script lang="ts">
-	import { get_slot_changes, validate_component } from "svelte/internal";
-    import Nav from "$lib/Nav.svelte";
-
-    let name = 'Philip Ritchey'
+<script>
+    import { auth } from '$lib/auth.js';
+    import { goto } from '$app/navigation';
+    let category;
+    $: category = $auth.category
+    $: if (!import.meta.env.SSR && category !== 'manager')
+        goto(`/login`, { replace: true });
     
     import {
         Button,
-        Form,
         FormGroup,
-        FormText,
         Input,
         Label,
         Table
@@ -69,6 +69,12 @@
         excess = await response.json();
     }
 
+    let season = []
+    async function get_seasonal() {
+        const response = await fetch('/manager/trends/get_seasonal');
+        season = await response.json();
+    }    
+
     let together = []
     async function get_together(from_date, to_date) {
         let input = `/manager/trends/get_together?from_date=${from_date}&to_date=${to_date}`;
@@ -111,7 +117,11 @@
                 get_restock();
                 is_div_visible = true;
                 break;
-        }
+            case "season":
+                get_seasonal();
+                is_div_visible = true;
+                break;
+            }
         
     }
 
@@ -132,12 +142,7 @@
 </style>
 
 <title>Manager: Trends</title>
-<Nav />
-
-<div>
-    <header >Manager: { name }</header>
-</div>
-
+&nbsp
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
@@ -149,6 +154,7 @@
                     <option value="excess">Excess</option>
                     <option value="together">Together</option>
                     <option value="restock">Restock</option>
+                    <option value="season">Seasonal Items</option>
                 </Input>
             </FormGroup>            
         </div>
@@ -304,8 +310,27 @@
                     </tbody>
                 </Table>
             </div>
-        {/if}
-    {/if}            
-
+        {:else if selected_report === "season"}
+            <div>
+                <p>Seasonal Items</p>
+                <Table bordered>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Season</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {#each season as i}
+                            <tr>
+                                <td>{i.name}</td>
+                                <td>{i.season}</td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </Table>
+            </div>
+        {/if}          
+    {/if}         
 </div>
 

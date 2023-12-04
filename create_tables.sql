@@ -1,4 +1,4 @@
-drop table  _user_category, _user, _customer_order, _menu_item, _ingredient, _restock_order, _ordered_item, _item_ingredient, _restock_ingredient;
+drop table  _status, _user_category, _user, _customer_order, _menu_item, _ingredient, _restock_order, _ordered_item, _item_ingredient, _restock_ingredient;
 
 CREATE TABLE _user_category (
 	category_id int PRIMARY KEY,
@@ -14,13 +14,20 @@ CREATE TABLE _user (
     CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES _user_category(category_id)
 );
 
+CREATE TABLE _status (
+	status_id int PRIMARY KEY,
+	status text
+);
+
 CREATE TABLE _customer_order (
     customer_order_id int PRIMARY KEY,
     id int,
     cost money,
     order_date date,
 	order_time time,
-    CONSTRAINT fk_id FOREIGN KEY (id) REFERENCES _user(id)
+    status_id int,
+    CONSTRAINT fk_id FOREIGN KEY (id) REFERENCES _user(id),
+    CONSTRAINT fk_satus_id FOREIGN KEY (status_id) REFERENCES _status(status_id)
 );
 
 CREATE TABLE _menu_item (
@@ -28,7 +35,7 @@ CREATE TABLE _menu_item (
     name text,
     price money,
 	calories int,
-	season int
+	season text
 );
 
 CREATE TABLE _ingredient (
@@ -79,47 +86,58 @@ CREATE TABLE _restock_ingredient (
 INSERT INTO 
 	_user_category(category_id, name)
 VALUES
+	(0, 'admin'),
 	(1, 'manager'),
 	(2, 'cashier'),
-	(3, 'customer');
+	(3, 'customer'),
+    (4, 'guest');
+
+
+INSERT INTO 
+	_status(status_id, status)
+VALUES
+	(0, 'Pending'),
+	(1, 'Completed'),
+	(2, 'Canceled');
 
 
 INSERT INTO 
 	_user(id, name, username, password, category_id)
 VALUES
+	(0, 'administrator', 'admin', 'admin', 0),
 	(1, 'Philip Ritchey', 'pritchey', 'dollar1', 1),
 	(2, 'Sophia Dronova', 'sdronova', 'frighten3', 2),
 	(3, 'Brendan Fattig', 'bfattig', 'liver2', 2),
-	(4, 'Megha Subhash', 'ssubhash', 'laboratory34', 2),
+	(4, 'Megha Subhash', 'msubhash', 'laboratory34', 2),
 	(5, 'Aaron Weng', 'aweng', 'jump560', 2),
-	(6, 'John Smith', 'jsmith', 'customer', 3);
+	(6, 'John Smith', 'jsmith', 'customer', 3),
+    (7, '', 'guest', '', 4);
 	
 	
-
 INSERT INTO 
 	_menu_item(menu_item_id, name, price, calories, season) 
 VALUES
-	(1, 'Chocolate Chip Cookie', 1.75, 100, 0),
-	(2, 'Snickerdoodle Cookie', 1.75, 100, 0),
-	(3, 'Sugar Cookie with M&Ms Cookie', 1.75, 100, 0),
-	(4, 'Double Chocolate Chip Cookie', 1.75, 100, 0),
-	(5, 'Pecan Chocolate Chip Cookie', 1.75, 100, 0),
-	(6, 'Peanut Butter Cookie', 1.75, 100, 0),
-	(7, 'Sugar Cookie', 1.75, 100, 0),
-	(8, 'Oatmeal Raisin Cookie', 1.75, 100, 0),
-	(9, 'Peanut Butter Chocolate Chip Cookie', 1.75, 100, 0),
-	(10, 'Connor Man Brookie', 3.75, 100, 0),
-	(11, 'Brownie', 4.50, 100, 0),
-	(12, 'Peanut Butter Chocolate Bar', 4.50, 100, 0),
-	(13, 'Salted Caramel Blondie', 4.50, 100, 0),
-    (14, 'Oatmeal Chocolate Chip Cookie', 1.75, 100, 0),
-    (15, 'Vanilla Ice Cream Pint', 5.50, 100, 0),
-    (16, 'Mint Chocolate Chip Pint', 5.50, 100, 0),
-    (17, 'Chocolate Ice Cream Pint', 5.50, 100, 0),
-    (18, 'Cookies n Cream Pint', 5.50, 100, 0),
-    (19, '1% Milk', 2.00, 100, 0),
-    (20, 'Chocolate Milk', 2.00, 100, 0),
-	(21, 'Gingerbread Cookie', 3.00, 100, 1);
+	(1, 'Chocolate Chip Cookie', 1.75, 100, 'None'),
+	(2, 'Snickerdoodle Cookie', 1.75, 100, 'None'),
+	(3, 'Sugar Cookie with M&Ms Cookie', 1.75, 100, 'None'),
+	(4, 'Double Chocolate Chip Cookie', 1.75, 100, 'None'),
+	(5, 'Pecan Chocolate Chip Cookie', 1.75, 100, 'None'),
+	(6, 'Peanut Butter Cookie', 1.75, 100, 'None'),
+	(7, 'Sugar Cookie', 1.75, 100, 'None'),
+	(8, 'Oatmeal Raisin Cookie', 1.75, 100, 'None'),
+	(9, 'Peanut Butter Chocolate Chip Cookie', 1.75, 100, 'None'),
+	(10, 'Connor Man Brookie', 3.75, 100, 'None'),
+	(11, 'Brownie', 4.50, 100, 'None'),
+	(12, 'Peanut Butter Chocolate Bar', 4.50, 100, 'None'),
+	(13, 'Salted Caramel Blondie', 4.50, 100, 'None'),
+    (14, 'Oatmeal Chocolate Chip Cookie', 1.75, 100, 'None'),
+    (15, 'Vanilla Ice Cream Pint', 5.50, 100, 'None'),
+    (16, 'Mint Chocolate Chip Pint', 5.50, 100, 'None'),
+    (17, 'Chocolate Ice Cream Pint', 5.50, 100, 'None'),
+    (18, 'Cookies n Cream Pint', 5.50, 100, 'None'),
+    (19, '1% Milk', 2.00, 100, 'None'),
+    (20, 'Chocolate Milk', 2.00, 100, 'None'),
+	(21, 'Gingerbread Cookie', 3.00, 100, 'Christmas');
     
 
 INSERT INTO 
