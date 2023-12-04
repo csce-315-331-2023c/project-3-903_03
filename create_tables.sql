@@ -108,7 +108,7 @@ VALUES
 	(1, 'Philip Ritchey', 'pritchey', 'dollar1', 1),
 	(2, 'Sophia Dronova', 'sdronova', 'frighten3', 2),
 	(3, 'Brendan Fattig', 'bfattig', 'liver2', 2),
-	(4, 'Megha Subhash', 'ssubhash', 'laboratory34', 2),
+	(4, 'Megha Subhash', 'msubhash', 'laboratory34', 2),
 	(5, 'Aaron Weng', 'aweng', 'jump560', 2),
 	(6, 'John Smith', 'jsmith', 'customer', 3),
     (7, '', 'guest', '', 4);
