@@ -14,6 +14,9 @@ dependencies:
   pg:
     specifier: ^8.11.3
     version: 8.11.3
+  svelte-routing:
+    specifier: ^2.6.0
+    version: 2.9.0
   sveltestrap:
     specifier: ^5.11.2
     version: 5.11.2(svelte@3.59.2)
@@ -1981,6 +1984,10 @@ packages:
       svelte: 3.59.2
       typescript: 4.9.5
     dev: true
+
+  /svelte-routing@2.9.0:
+    resolution: {integrity: sha512-Ve0OJ78DnjWhOdKeSZGgcyOiaVSu+fZMWNkKqn13+y15vGk/yVjHDYyJLmC1gorQUSIVeqkwQ2LCplfuStKS4w==}
+    dev: false
 
   /svelte@3.59.2:
     resolution: {integrity: sha512-vzSyuGr3eEoAtT/A6bmajosJZIUWySzY2CzB3w2pgPvnkUjGqlDnsNnA0PMO+mMAhuyMul6C2uuZzY6ELSkzyA==}
