@@ -1,6 +1,6 @@
 <h1>About Tiff's Treats</h1>
 
-<h2> Our Story </h3>
+<h2> Our Story </h2>
 <p>Today, Tiff's Treats is famous for bringing hot, fresh-from-the-oven cookies and brownies to hungry treat lovers everywhere, but it all started with $20, a cell phone, and a dream.</p>
 
 <h3> 1999 </h3>
@@ -15,5 +15,5 @@
 <h4> Fresh Favorites </h4>
 <p> We’ve always tried to keep our menu small, to keep our dough fresh and ensure we never run out of your favorite flavors. Of course, we’ve got ice cream and brownies, as well as a few other delicious delights. </p>
 
-<h2> Tiff's Treat's Today </h3>
+<h2> Tiff's Treat's Today </h2>
 <p> Today, Tiff and Leon are married. And the company has grown to 86 stores and 1700 employees (and we're growing all the time). But our core mission is still the same- make amazing cookies from high-quality ingredients and bake them when they're ordered, so they're delivered fresh and warm. </p>
