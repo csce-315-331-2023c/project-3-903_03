@@ -21,11 +21,12 @@ async function can_complete_order(customer_order_id) {
         const result = await connection.query(sql);
         if (result) {
             const count = Number(result.rows[0].count);
-            return (count === 0);    
+            return (count == 0);    
         }
+    } catch (error) {
+        return false;
     } finally {
         connection.release();
-        return false;
     }
 }
 
@@ -60,7 +61,6 @@ export async function PATCH( {request} ) {
     const {customer_order_id} = await request.json();
     if (await can_complete_order(customer_order_id)) {
         update_quantaties(customer_order_id);
-        console.log("success");
         return json({success: true});
     }
     return json({success: false});

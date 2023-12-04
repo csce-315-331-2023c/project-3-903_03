@@ -156,8 +156,8 @@
                 continue;
             total_restock += (Number(i.cost.slice(1)) * qty);
             post_ingredients.push({'ingredient_id' : i.ingredient_id, 'quantity' : qty, 'needed_qty':i.needed_qty});
-            
         }
+        total_restock = total_restock.toFixed(2);
     }  
 
     let edit_open = false;
