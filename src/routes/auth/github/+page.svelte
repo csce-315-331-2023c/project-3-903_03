@@ -1,3 +1,4 @@
+
 <script>
 	import Nav from '$lib/Nav.svelte';
 	import { navigate } from 'svelte-routing';
