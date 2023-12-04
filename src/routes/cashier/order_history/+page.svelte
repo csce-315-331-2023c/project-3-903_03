@@ -34,6 +34,9 @@
   let open_filter = false;
   const toggle_filter = () => (open_filter = !open_filter);
 
+  let modal_open = false;
+  const modal_toggle = () => (modal_open = !modal_open);
+
   let customer_orders = [];
   let statuses = {};
   let from_date = "";
@@ -178,10 +181,12 @@
   }
 
   async function update_order(customer_order_id, status_id) {
-    if (patch_ingredients(customer_order_id, status_id)) 
+    if (await patch_ingredients(customer_order_id, status_id)) {
       patch_order(customer_order_id, status_id);
+    }
     else {
-      console.log("Not enough ingredients");
+      // not enough ingredients
+      modal_toggle();
     }
   }
 
@@ -380,7 +385,16 @@
           </Card>
         </ListGroupItem>
       {/each}
-    </ListGroup>  
+    </ListGroup>
+    <Modal isOpen={modal_open} {modal_toggle}>
+      <ModalHeader {modal_toggle}>Warning</ModalHeader>
+      <ModalBody>
+        Not enough ingredients to complete order.
+      </ModalBody>
+      <ModalFooter>
+        <Button color="primary" on:click={modal_toggle}>OK</Button>
+      </ModalFooter>
+    </Modal>  
   </body>
 
   <style>

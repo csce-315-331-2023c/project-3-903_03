@@ -9,7 +9,7 @@
             name : '',
             category : 'guest',
     });  
-    goto(`/customer/place_order`, { replace: true });
+    goto(`/guest/place_order`, { replace: true });
 </script>
 
 

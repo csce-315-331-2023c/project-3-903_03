@@ -41,7 +41,6 @@
     }
 
     function set_auth (isA, id, username, password, name, category) {
-        console.log(isA, id, username, password, name, category);
         auth.set({
             isAuthenticated: isA, 
             id : id,

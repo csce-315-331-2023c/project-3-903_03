@@ -1,8 +1,6 @@
 import pool from "$lib/db/pg";
 import { json } from '@sveltejs/kit';
 
-
-
 async function can_complete_order(customer_order_id) {
     let connection = await pool.connect();
     let sql = 
@@ -19,7 +17,10 @@ async function can_complete_order(customer_order_id) {
         WHERE available = false;`;
     try {
         const result = await connection.query(sql);
-        return result.rows[0].count == 0;
+        if (result) {
+            const count = Number(result.rows[0].count);
+            return (count === 0);    
+        }
     } finally {
         connection.release();
         return false;
@@ -55,9 +56,9 @@ async function update_quantaties(customer_order_id) {
 export async function PATCH( {request} ) {
     let connection = await pool.connect();
     const {customer_order_id} = await request.json();
-    if (can_complete_order(customer_order_id)) {
+    const output = await can_complete_order(customer_order_id);;
+    if (output) {
         update_quantaties(customer_order_id);
-        console.log("success");
         return json({success: true});
     }
     return json({success: false});

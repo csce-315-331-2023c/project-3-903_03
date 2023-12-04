@@ -41,7 +41,6 @@
     if (data.success) {
       for (let status of data.statuses)
         statuses[status.status_id] = status.status;
-      console.log(statuses);
     } else {
       console.log(data.error);
     }
