@@ -67,11 +67,6 @@
 const githubClientId = 'e5c959e86a3530c6169f';
 
 async function loginWithOAuth() {
-    // Generate a random code verifier
-    const codeVerifier = 'your_random_code_verifier'; // Replace with an actual random value
-
-    // Create a code challenge from the code verifier
-    const codeChallenge = btoa(codeVerifier);
 
     // Construct the OAuth authorization URL
     const oauthURL = `https://github.com/login/oauth/authorize?client_id=${githubClientId}`;
@@ -82,18 +77,29 @@ async function loginWithOAuth() {
 
 // Handle the callback after the user is redirected back from the OAuth provider
 async function handleCallback() {
+    //alert('handleCallback');
     // Extract the authorization code from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const authorizationCode = urlParams.get('code');
+    alert(urlParams);
 
     if (authorizationCode) {
         // Exchange the authorization code for an access token
+        //alert(authorizationCode);
         await authenticateWithOAuth(authorizationCode);
     }
 }
 
+async function fullLogin() {
+
+    loginWithOAuth();
+    handleCallback();
+}
+
 // Replace with your actual GitHub OAuth application credentials
 const githubClientSecret = '8b6973ee465c4b4ac5f6770b11480e5bc6e21ee2';
+// http://127.0.0.1:5173/
+// https://project-3-903-03.fly.dev/
 const redirectUri = 'http://127.0.0.1:5173/'; // Replace with your actual callback URL
 
 async function authenticateWithOAuth(code) {
@@ -141,6 +147,7 @@ if (authorizationCode) {
     //alert('Loading');
     const urlParams = new URLSearchParams(window.location.search);
     const authorizationCode = urlParams.get('code');
+    alert(authorizationCode);
 
     if (authorizationCode) {
     // The URL contains an authorization code
@@ -171,7 +178,7 @@ if (authorizationCode) {
         </InputGroup>
         <ButtonGroup style="width: 300px;padding: 10px;">
             <Button active on:click={check}>Login</Button>
-            <Button color="primary" on:click={loginWithOAuth}>Login with OAuth</Button>
+            <Button color="primary" on:click={fullLogin}>Login with OAuth</Button>
         </ButtonGroup>
         &nbsp
         {#if (message !== '')}
