@@ -2,9 +2,12 @@
     import { auth, isAuthenticated } from '$lib/auth.js';
     import { goto } from '$app/navigation';
     import { Form, InputGroup, InputGroupText, Input, Button, ButtonGroup, Card, CardBody } from 'sveltestrap';
+    import { onMount } from 'svelte';
 
     let username = '';
     let password = '';
+
+    
 
     async function login() {
         const input = `/login/get?username=${username}&password=${password}`;
@@ -59,6 +62,105 @@
     }    
 
     let message = '';
+
+// Replace with your GitHub OAuth application credentials
+const githubClientId = 'e5c959e86a3530c6169f';
+
+async function loginWithOAuth() {
+
+    // Construct the OAuth authorization URL
+    const oauthURL = `https://github.com/login/oauth/authorize?client_id=${githubClientId}`;
+
+    // Redirect the user to the OAuth authorization URL
+    window.location.href = oauthURL;
+}
+
+// Handle the callback after the user is redirected back from the OAuth provider
+async function handleCallback() {
+    //alert('handleCallback');
+    // Extract the authorization code from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const authorizationCode = urlParams.get('code');
+    //alert(urlParams);
+
+    if (authorizationCode) {
+        // Exchange the authorization code for an access token
+        //alert(authorizationCode);
+        await authenticateWithOAuth(authorizationCode);
+    }
+}
+
+async function fullLogin() {
+
+    loginWithOAuth();
+    handleCallback();
+}
+
+// Replace with your actual GitHub OAuth application credentials
+const githubClientSecret = '8b6973ee465c4b4ac5f6770b11480e5bc6e21ee2';
+// http://127.0.0.1:5173/
+// https://project-3-903-03.fly.dev/
+const redirectUri = 'https://project-3-903-03.fly.dev/'; // Replace with your actual callback URL
+
+async function authenticateWithOAuth(code) {
+    // Send the authorization code to your server to exchange it for an access token
+    const response = await fetch('/exchange-code', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            code,
+            clientId: githubClientId,
+            clientSecret: githubClientSecret,
+            redirectUri,
+        }),
+    });
+
+    const data = await response.json();
+
+    if (data.token) {
+        // Store the access token securely (for example, in local storage)
+        localStorage.setItem('oauthToken', data.token);
+
+        // Continue with your application logic...
+    } else {
+        // Handle error when exchanging code for token
+        console.error('Error exchanging code for token:', data.error);
+    }
+}
+
+// Extract the authorization code from the URL
+const urlParams = new URLSearchParams(window.location.search);
+const authorizationCode = urlParams.get('code');
+
+if (authorizationCode) {
+    // The URL contains an authorization code
+    // Exchange it for an access token
+    authenticateWithOAuth(authorizationCode);
+}
+
+
+    async function onLoad() {
+
+    // Check if the URL contains an authorization code
+    //alert('Loading');
+    const urlParams = new URLSearchParams(window.location.search);
+    const authorizationCode = urlParams.get('code');
+    //alert(authorizationCode);
+
+    if (authorizationCode) {
+    // The URL contains an authorization code
+    // Exchange it for an access token
+    await authenticateWithOAuth(authorizationCode);
+
+    // Remove the code from the URL (optional, depending on your app design)
+    //const urlWithoutCode = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, document.title, urlWithoutCode);
+    }
+    }
+
+    onMount(onLoad);
 </script>
 
 
@@ -76,6 +178,7 @@
         </InputGroup>
         <ButtonGroup style="width: 300px;padding: 10px;">
             <Button active on:click={check}>Login</Button>
+            <Button color="primary" on:click={fullLogin}>Login with OAuth</Button>
         </ButtonGroup>
         &nbsp
         {#if (message !== '')}
