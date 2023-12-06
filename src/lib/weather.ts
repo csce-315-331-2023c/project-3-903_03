@@ -1,8 +1,8 @@
 import { fetchWeatherApi } from 'openmeteo';
 	
-const params = {
-	"latitude": 30.6215,
-	"longitude": -96.3403,
+const params = { //30.62449289243323, -96.33937333985472
+	"latitude": 30.6245,
+	"longitude": -96.3394,
 	"current": ["temperature_2m", "precipitation", "rain", "weather_code"],
 	"minutely_15": "rain",
 	"hourly": "temperature_2m",
