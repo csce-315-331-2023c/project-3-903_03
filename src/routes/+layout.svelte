@@ -55,6 +55,9 @@
 			<NavItem>
 				<NavLink href="/menu">Menu</NavLink>
 			</NavItem>
+      <NavItem>
+        <NavLink href="/translate">TranslateAPI</NavLink>
+      </NavItem>
 			{#if is_manager_visible}
 				<Dropdown nav inNavbar>
 					<DropdownToggle nav caret>Manager</DropdownToggle>
