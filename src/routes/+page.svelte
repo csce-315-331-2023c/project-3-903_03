@@ -1,11 +1,22 @@
 <script>
 	import { Button } from 'sveltestrap';
+
+	function adjustTextSize(size) {
+        const scaleFactor = size === 'larger' ? 1.2 : 1; // Adjust the scale factor as needed
+
+        // Scale specific elements
+        const elementsToScale = document.querySelectorAll('.container, .extra-text, .contact');
+
+        elementsToScale.forEach(element => {
+            element.style.transform = `scale(${scaleFactor})`;
+        });
+    }
 </script>
 
 <style>
 	/* Add your CSS styles here */
 	:global(body) {
-		background-color: #add8e6; /* Set a background color for the body */
+		background-color: #fffff6; /* Set a background color for the body */
 		color: #001f3f; /* Set the text color to a dark shade of blue */
 	}
 
@@ -53,6 +64,15 @@
 		background-color: #0056b3; /* Darker shade on hover */
 		border-color: #0056b3;
 	}
+
+	.text-size-buttons-container {
+        text-align: center;
+        margin-top: 20px; /* Adjust as needed */
+    }
+
+    .text-size-buttons {
+        display: inline-block;
+    }
 </style>
 
 <title>Home</title>
@@ -61,6 +81,7 @@
 <div class="container">
 	<h1>Welcome to Tiff's Treats</h1>
 	<p>Home of delicious warm cookies delivered to your doorstep!</p>
+	<!-- <img src="homePage.jpeg" alt="home page image" class="cookies-image"> -->	
 	<Button href="/guest"
 		style="margin: 10px; width:250px; padding:13px; font-size:19px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19"
 		color="primary">
@@ -81,4 +102,11 @@
 <div class="socials">
 	<a href="https://www.facebook.com/tiffstreats">Follow us on Facebook</a>
 	<a href="https://twitter.com/tiffstreats">Follow us on Twitter</a>
+</div>
+
+<div class="text-size-buttons-container">
+    <div class="text-size-buttons">
+        <Button on:click={() => adjustTextSize('normal')}>Normal Text Size</Button>
+        <Button on:click={() => adjustTextSize('larger')}>Larger Text Size</Button>
+    </div>
 </div>
